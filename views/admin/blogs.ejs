@@ -1,0 +1,52 @@
+<%- include("partial/header") %>
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <%- include("partial/sidebar") %>
+
+
+            <!-- Content Wrapper -->
+            <div id="content-wrapper" class="d-flex flex-column">
+
+                <!-- Main Content -->
+                <div id="content">
+
+                    <%- include("partial/top-nav") %>
+
+                        <!-- Begin Page Content -->
+                        <div class="container-fluid">
+
+                            <!-- Page Heading -->
+                            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                                <h1 class="h3 mb-0 text-gray-800">All Blog</h1>
+                            </div>
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">All Blog's</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" id="myTable" width="100%" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Date</th>
+                                                    <th>Commenter</th>
+                                                    <th>Email</th>
+                                                    <th>Comment</th>
+                                                    <th>Post</th>
+                                                    <th>Operation</th>
+                                                </tr>
+                                            </thead>
+                                           
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- End Begin Page Content -->
+                </div>
+                <!-- End of Main Content -->
+
+                <%- include("partial/footer") %>
