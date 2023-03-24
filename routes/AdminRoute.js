@@ -13,6 +13,7 @@ router.get('/blog',AdminController.adminAuth, AdminController.blog);
 router.get('/logout', AdminController.logout)
 
 // Doctor Router
-router.get('/doctor', DoctorController.doctor);
+router.get('/doctor',AdminController.adminAuth, DoctorController.doctor);
+router.post('/adddoctor' , DoctorController.addDoctor)
 
 module.exports=router;

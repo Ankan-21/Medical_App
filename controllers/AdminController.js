@@ -88,5 +88,5 @@ const logout = (req, res) => {
 module.exports={
     adminAuth,
     show_login,admin_login,logout,
-    dashboard,doctor,user,blog,
+    dashboard,user,blog,
 }
