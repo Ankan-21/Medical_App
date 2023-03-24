@@ -23,7 +23,9 @@
                             </div>
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">All Doctor</h6>
                                 </div>
+                                
                                 <div class="card-body">
                                     <div class="table-responsive">
                                         <table class="table table-bordered" id="myTable" width="100%" cellspacing="0">
@@ -38,10 +40,13 @@
 
                                                 </tr>
                                             </thead>
-                                            <% let count=0; if(doctors.length> 0) {%>
-                                                <tbody>
+                                            <tbody>
+                                                    <% let count=0; if(doctors.length> 0) {%>
                                                     <% for(let data of doctors) {%>
                                                         <tr>
+                                                            <td>
+                                                                <%=data.createAt%>
+                                                            </td>
                                                             <td>
                                                                 <%=data.name%>
                                                             </td>
@@ -59,11 +64,8 @@
                                                             </td>
 
                                                         </tr>
+                                                        <%} }%>
                                                 </tbody>
-                                                <%} }else{ %>
-                                                    <h1> No Data Found</h1>
-
-                                                    <% }%>
 
                                         </table>
                                     </div>
@@ -73,6 +75,10 @@
                         </div>
                         <!-- End Begin Page Content -->
                 </div>
+                
+                <!-- new table -->
+                
+
                 <!-- End of Main Content -->
                 <%- include("partial/footer") %>
                     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

@@ -22,10 +22,10 @@ const addDoctor = (req,res)=>{
         email : req.body.email,
     })
     doctordata.save().then(data=>{
-        res.redirect('./admin/doctor')
+        res.redirect('./doctor')
         console.log(data);
     }).catch(err=>{
-        res.redirect('./admin/doctor')
+        res.redirect('./doctor')
         console.log(err);
     })
 }
