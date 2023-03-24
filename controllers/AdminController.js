@@ -14,11 +14,6 @@ const adminAuth = (req, res, next) => {
     }
 }
 
-// const dashboard=(req,res)=>{
-//     res.render("./admin/dashboard",{
-//         data: req.admin,
-//     })
-// }
 
 const dashboard = (req, res) => {
     if (req.admin) {
@@ -43,25 +38,19 @@ const blog=(req,res)=>{
     res.render("./admin/blogs")
 }
 
-// const admin_login=(req,res)=>{
 
-//     res.render("./admin/admin-login",{
-    
-//     })
-// }
-
-
-const admin_login = (req, res) => {
+const show_login = (req, res) => {
     loginData = {}
     loginData.email = (req.cookies.email) ? req.cookies.email : undefined
     loginData.password = (req.cookies.password) ? req.cookies.password : undefined
-    res.render("./admin", {
+    res.render("./admin/login", {
         loginData: loginData,
     });
 }
 
 
-const login = (req, res, next) => {
+
+const admin_login = (req, res, next) => {
     UserModel.findOne({
         email: req.body.email
     }, (err, data) => {
@@ -97,5 +86,7 @@ const logout = (req, res) => {
 }
 
 module.exports={
-    dashboard,user,blog,admin_login,login,logout,adminAuth
+    adminAuth,
+    show_login,admin_login,logout,
+    dashboard,doctor,user,blog,
 }

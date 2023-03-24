@@ -4,8 +4,8 @@ const DoctorController = require('../controllers/DoctorController')
 
 
 
-router.get('/', AdminController.admin_login);
-router.post('/sigin', AdminController.login);
+router.get('/', AdminController.show_login);
+router.post('/sigin', AdminController.admin_login);
 
 router.get('/dashboard',AdminController.adminAuth, AdminController.dashboard);
 router.get('/users',AdminController.adminAuth, AdminController.user);

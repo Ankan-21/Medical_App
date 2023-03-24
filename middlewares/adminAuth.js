@@ -8,7 +8,7 @@ exports.authJwt = (req, res, next) => {
             next()
         })
     } else {
-        console.log("Something went wrong");
+        console.log("");
         next()
     }
 }
