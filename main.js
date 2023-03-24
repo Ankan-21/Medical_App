@@ -2,10 +2,21 @@ const express = require('express');
 const mongoose = require('mongoose');
 const body_parser=require('body-parser')
 const cookie=require('cookie-parser')
+const session=require('express-session')
 const ejs = require('ejs');
 const path = require('path');
 const app = express();
 const port = 9010;
+
+app.use(session({
+    cookie: {
+        maxAge: 60000
+    },
+    secret: "nishant@8818",
+    resave: false,
+    saveUninitialized: false
+}));
+
 
 app.use(express.urlencoded({ extended: true }));
 app.use(body_parser.json());
