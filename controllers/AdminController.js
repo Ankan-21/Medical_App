@@ -41,13 +41,6 @@ const blog=(req,res)=>{
     res.render("./admin/blogs")
 }
 
-// const admin_login=(req,res)=>{
-
-//     res.render("./admin/admin-login",{
-    
-//     })
-// }
-
 
 const show_login = (req, res) => {
     loginData = {}
