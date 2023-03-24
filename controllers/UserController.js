@@ -18,6 +18,9 @@ const department = (req, res) => {
 const doctor = (req, res) => {
     res.render("./user/doctor")
 }
+const doctor_single = (req, res) => {
+    res.render("./user/doctor-single")
+}
 const blog = (req, res) => {
     res.render("./user/blog")
 }
@@ -54,6 +57,6 @@ const CreateRegister = (req, res) => {
 
 
 module.exports = {
-    home, about, contact, department, doctor, blog, blog_details,
+    home, about, contact, department, doctor,doctor_single, blog, blog_details,
     register, CreateRegister,
 }
