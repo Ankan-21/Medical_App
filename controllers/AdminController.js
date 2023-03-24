@@ -34,9 +34,6 @@ const dashboard = (req, res) => {
     }
 }
 
-const doctor=(req,res)=>{
-    res.render("./admin/doctor")
-}
 
 const user=(req,res)=>{
     res.render("./admin/users")
@@ -100,5 +97,5 @@ const logout = (req, res) => {
 }
 
 module.exports={
-    dashboard,doctor,user,blog,admin_login,login,logout,adminAuth
+    dashboard,user,blog,admin_login,login,logout,adminAuth
 }
