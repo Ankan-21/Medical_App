@@ -4,8 +4,8 @@ const AdminController=require("../controllers/AdminController");
 
 
 
-router.get('/', AdminController.admin_login);
-router.post('/sigin', AdminController.login);
+router.get('/', AdminController.show_login);
+router.post('/sigin', AdminController.admin_login);
 
 router.get('/dashboard',AdminController.adminAuth, AdminController.dashboard);
 router.get('/doctor',AdminController.adminAuth, AdminController.doctor);
