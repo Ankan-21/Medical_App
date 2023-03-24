@@ -23,8 +23,64 @@
                             </div>
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">All Doctor</h6>
+                                    
+                                    <h6 class="m-0 font-weight-bold text-primary" type="button" class="btn btn-primary"
+                                        data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Add Doctor
+                                    </h6>
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Add Doctor</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form action="/admin/adddoctor" method="post">
+                                                        <div class="form-group">
+                                                            <label class="col-form-label">Doctor's Name:</label>
+                                                            <input type="text" class="form-control" name="name"
+                                                                placeholder="Doctor's Name">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-form-label">Specialist:</label>
+                                                            <input type="text" class="form-control" name="specialist"
+                                                                placeholder="Specialist">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-form-label">Experience:</label>
+                                                            <input type="text" class="form-control" name="experience"
+                                                                placeholder="Experience">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-form-label">Qualification:</label>
+                                                            <input type="text" class="form-control" name="qualification"
+                                                                placeholder="Qualification">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-form-label">Email:</label>
+                                                            <input type="email" class="form-control" name="email"
+                                                                placeholder="Email">
+                                                        </div>
+
+                                                        <div class="modal-footer form-group">
+                                                            <label class="col-form-label"></label>
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-dismiss="modal">Close</button>
+                                                            <input type="submit" class="btn btn-primary" value="submit">
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
                                 </div>
+                                
                                 <div class="card-body">
                                     <div class="table-responsive">
                                         <table class="table table-bordered" id="myTable" width="100%" cellspacing="0">
@@ -39,10 +95,13 @@
 
                                                 </tr>
                                             </thead>
-                                            <% let count=0; if(doctors.length> 0) {%>
-                                                <tbody>
+                                            <tbody>
+                                                    <% let count=0; if(doctors.length> 0) {%>
                                                     <% for(let data of doctors) {%>
                                                         <tr>
+                                                            <td>
+                                                                <%=data.createAt%>
+                                                            </td>
                                                             <td>
                                                                 <%=data.name%>
                                                             </td>
@@ -60,11 +119,8 @@
                                                             </td>
 
                                                         </tr>
+                                                        <%} }%>
                                                 </tbody>
-                                                <%} }else{ %>
-                                                    <h1> No Data Found</h1>
-
-                                                    <% }%>
 
                                         </table>
                                     </div>
@@ -74,6 +130,10 @@
                         </div>
                         <!-- End Begin Page Content -->
                 </div>
+                
+                <!-- new table -->
+                
+
                 <!-- End of Main Content -->
                 <%- include("partial/footer") %>
                     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
