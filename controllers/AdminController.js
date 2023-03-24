@@ -46,22 +46,22 @@ const blog=(req,res)=>{
     res.render("./admin/blogs")
 }
 
-// const admin_login=(req,res)=>{
+const admin_login=(req,res)=>{
 
-//     res.render("./admin/admin-login",{
+    res.render("./admin/admin-login",{
     
-//     })
-// }
-
-
-const admin_login = (req, res) => {
-    loginData = {}
-    loginData.email = (req.cookies.email) ? req.cookies.email : undefined
-    loginData.password = (req.cookies.password) ? req.cookies.password : undefined
-    res.render("./admin", {
-        loginData: loginData,
-    });
+    })
 }
+
+
+// const admin_login = (req, res) => {
+//     loginData = {}
+//     loginData.email = (req.cookies.email) ? req.cookies.email : undefined
+//     loginData.password = (req.cookies.password) ? req.cookies.password : undefined
+//     res.render("./admin/admin-dashboard", {
+//         loginData: loginData,
+//     });
+// }
 
 
 const login = (req, res, next) => {
