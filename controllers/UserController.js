@@ -1,4 +1,5 @@
 const UserModel = require('../models/UserModel');
+const DoctorModel = require('../models/DoctorModel')
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
@@ -16,7 +17,14 @@ const department = (req, res) => {
     res.render("./user/department")
 }
 const doctor = (req, res) => {
-    res.render("./user/doctor")
+    DoctorModel.find((err, data)=>{
+        if(!err){
+            res.render('./user/doctor' , {
+                'title' : 'Doctor Page',
+                doctors : data,
+            })
+        }
+    })
 }
 const doctor_single = (req, res) => {
     res.render("./user/doctor-single")
