@@ -32,8 +32,6 @@ const register = (req, res) => {
     res.render("./user/register")
 }
 
-
-
 const CreateRegister = (req, res) => {
     const hashedPassword = bcrypt.hashSync(req.body.password, 10);
     const User = new UserModel({
@@ -51,9 +49,6 @@ const CreateRegister = (req, res) => {
         res.redirect('/register')
     })
 }
-
-
-
 
 
 module.exports = {
