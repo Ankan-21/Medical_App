@@ -20,7 +20,7 @@ const blogSchema = new Schema({
     },
     createAt:{
         type : Date,
-        default : Date.now
+        default :new Date
     }
 })
 
