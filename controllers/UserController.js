@@ -1,5 +1,6 @@
 const UserModel = require('../models/UserModel');
 const DoctorModel = require('../models/DoctorModel')
+const BlogModel = require('../models/BlogModel')
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
@@ -64,7 +65,14 @@ const doctor_single = (req, res) => {
 
 
 const blog = (req, res) => {
-    res.render("./user/blog")
+    BlogModel.find((err, data)=>{
+        if(!err){
+            res.render('./user/blog' , {
+                'title' : 'Blog Page',
+                blogs : data,
+            })
+        }
+    })
 }
 const blog_details = (req, res) => {
     res.render("./user/blog-details")

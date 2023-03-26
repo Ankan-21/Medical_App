@@ -1,8 +1,8 @@
 <%-include("partial/head")%>
     <!-- Preloader Start -->
+    
 
-
-
+    
 
     <%-include("partial/navbar")%>
         <main>
@@ -34,9 +34,10 @@
                         </div>
                     </div>
                     <div class="row d-flex flex-row">
-                        <% let count=0; if(doctors.length> 0) {%>
-                            <% for(let data of doctors) {%>
-                                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-4">
+                    <% let count=0; if(doctors.length> 0) {%>
+                        <% for(let data of doctors) {%>
+                            
+                                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-">
                                     <div class="single-team mb-30">
                                         <div class="team-img">
                                             <img
@@ -46,40 +47,34 @@
                                         <div class="team-caption">
                                             <h3><a href="/doctor-details">
                                                     <%=data.name%>
-                                                    </a></h3>
-                                                <span>
-                                                    <%=data.specialist%>
-                                                    </span>
-                                                    <span>
-                                                        <%=data.experience%>
-                                                        </span>
-                                                        <span>
-                                                            <%=data.qualification%>
-                                                            </span>
-                                                            <!-- Team social -->
-                                                            <div
-                                                                class="team-social">
-                                                                <a href="#"><i
-                                                                        class="fab
-                                                                        fa-twitter"></i></a>
-                                                                <a href="#"><i
-                                                                        class="fas
-                                                                        fa-globe"></i></a>
-                                                                <a href="#"><i
-                                                                        class="fab
-                                                                        fa-facebook-f"></i></a>
-                                                                <a href="#"><i
-                                                                        class="fab
-                                                                        fa-pinterest-p"></i></a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <%} }%>
-                                                </div>
+                                                </a></h3>
+                                            <span>
+                                                <%=data.specialist%>
+                                            </span>
+                                            <span>
+                                                <%=data.experience%>
+                                            </span>
+                                            <span>
+                                                <%=data.qualification%>
+                                            </span>
+                                            <!-- Team social -->
+                                            <div class="team-social">
+                                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                                <a href="#"><i class="fas fa-globe"></i></a>
+                                                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                                <a href="#"><i class="fab fa-pinterest-p"></i></a>
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- Team End -->
-                                </main>
-                                <%-include("partial/footer")%>
+                                </div>
+                                <%} }%>
+                            </div>
+                        </div>
+                                   
+            
+
+                </div>
+            </div>
+            <!-- Team End -->
+        </main>
+        <%-include("partial/footer")%>

@@ -34,9 +34,6 @@ const user=(req,res)=>{
     res.render("./admin/users")
 }
 
-const blog=(req,res)=>{
-    res.render("./admin/blogs")
-}
 
 
 const show_login = (req, res) => {
@@ -88,5 +85,5 @@ const logout = (req, res) => {
 module.exports={
     adminAuth,
     show_login,admin_login,logout,
-    dashboard,user,blog,
+    dashboard,user
 }
