@@ -27,8 +27,42 @@ const doctor = (req, res) => {
     })
 }
 const doctor_single = (req, res) => {
-    res.render("./user/doctor-single")
+    DoctorModel.find({slug:req.params.slug}).then(result=>{
+        res.render("./user/doctor-single",{
+            singleData:result
+        })
+    })
+    
 }
+
+
+// const doctor_single = (req, res) => {
+//     PostModel.find({ slug: req.params.slug }).then(result => {
+//         console.log(result);
+//         CommentModel.find().populate("post").exec((err, data) => {
+//             if (!err) {
+//                 console.log(data);
+//                 res.render("viewpost", {
+//                     displayData: result,
+                   
+                   
+//                 })
+//             } else {
+//                 console.log(err);
+//             }
+//         })
+//     }).catch(err => {
+//         console.log(err);
+//     })
+// }
+
+
+
+
+
+
+
+
 const blog = (req, res) => {
     res.render("./user/blog")
 }

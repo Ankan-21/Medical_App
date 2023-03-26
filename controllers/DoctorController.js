@@ -20,6 +20,7 @@ const addDoctor = (req,res)=>{
         experience : req.body.experience,
         qualification : req.body.qualification,
         email : req.body.email,
+        DoctorImage:req.file.filename,
     })
     doctordata.save().then(data=>{
         res.redirect('./doctor')
