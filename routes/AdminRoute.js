@@ -7,11 +7,6 @@ const DoctorController = require('../controllers/DoctorController')
 const BlogController = require('../controllers/BlogController')
 
 
-
-
-
-
-
 router.use(express.static('public'));
 
 const storage = multer.diskStorage({
@@ -60,7 +55,7 @@ router.post('/adddoctor',upload.single('image'), DoctorController.addDoctor)
 
 //Blog Router
 router.get('/blog',AdminController.adminAuth, BlogController.blog);
-router.post('/addblog' , BlogController.addBlog)
+router.post('/addblog' ,upload.single('image'), BlogController.addBlog)
 
 
 module.exports=router;

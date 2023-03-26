@@ -17,6 +17,8 @@ const blogSchema = new Schema({
     PostImage:{
         type:String,
         required:true
+        type : String,
+        required : true
     },
     status:{
         type : Boolean,
@@ -24,7 +26,7 @@ const blogSchema = new Schema({
     },
     createAt:{
         type : Date,
-        default :new Date
+        default :Date.now
     }
 })
 
