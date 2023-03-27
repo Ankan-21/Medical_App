@@ -1,1 +1,1 @@
-user time stamp in all model
+user timestamp in all model
