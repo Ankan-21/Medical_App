@@ -196,7 +196,7 @@ const login = (req, res) => {
                     from: req.body.email,
                     to: "msouvik112@gmail.com",
                     subject: req.body.subject,
-                    text: req.body.message
+                    text: req.body.firstname+' here'+'\n'+req.body.message
                 };
                 transporter.sendMail(mailOptions, function (err) {
                     if (err) {
