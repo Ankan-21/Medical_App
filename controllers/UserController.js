@@ -48,7 +48,7 @@ const doctor = (req, res) => {
 }
 
 const doctor_single = (req, res) => {
-    const id = req.params.id;
+    const id=req.params.id;
     DoctorModel.findById(id).then(result => {
         console.log(result);
         res.render("./user/doctor-single", {
