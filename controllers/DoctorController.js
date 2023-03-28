@@ -31,6 +31,7 @@ const addDoctor = (req,res)=>{
     })
 }
 
+
 module.exports = {
     doctor,
     addDoctor

@@ -4,7 +4,7 @@ const verifysiginin=require('../middlewares/verifysignin');
 router.get('/', UserController.home);
 router.get('/about', UserController.about);
 router.get('/doctor', UserController.doctor);
-router.get('/doctor-details/(:slug)', UserController.doctor_single);
+router.get('/doctor-details/:id', UserController.doctor_single);
 router.get('/blog', UserController.blog);
 router.get('/blog-single', UserController.blog_details)
 router.get('/department', UserController.department);
