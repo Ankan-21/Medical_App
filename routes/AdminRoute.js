@@ -49,6 +49,9 @@ router.get('/dashboard',AdminController.adminAuth, AdminController.dashboard);
 router.get('/users',AdminController.adminAuth, AdminController.user);
 router.get('/logout', AdminController.logout)
 
+//admin About Page
+router.get('/about',AdminController.adminAuth, AdminController.AdminAbout);
+
 // Doctor Router
 router.get('/doctor',AdminController.adminAuth, DoctorController.doctor);
 router.post('/adddoctor',upload.single('image'), DoctorController.addDoctor)
