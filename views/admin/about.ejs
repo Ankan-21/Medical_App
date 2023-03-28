@@ -1,57 +1,109 @@
 <%- include("partial/header") %>
 
-<body id="page-top">
-
     <!-- Page Wrapper -->
     <div id="wrapper">
 
-        <!-- Sidebar -->
-        <%- include("partial/sidebar") %> 
-        <!-- End of Sidebar -->
+        <%- include("partial/sidebar") %>
 
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
 
-            <!-- Main Content -->
-            <div id="content">
+            <!-- Content Wrapper -->
+            <div id="content-wrapper" class="d-flex flex-column">
 
-                <!-- Topbar -->
-                
-                <%- include("partial/top-nav") %>
-                <!-- End of Topbar -->
+                <!-- Main Content -->
+                <div id="content">
 
-                <div class="container-fluid">
-                    <!-- Page Heading -->
-                    
-                    <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">All Data</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>Date</th>
-                                            <th>User ID</th>
-                                            <th>Title</th>
-                                            <th>Sub Title</th>
-                                            <th>Image</th>
-                                            <th>Content</th>
-                                            <th>Writer</th>
-                                            <th>Operation</th>
-                                            <th>Action</th>
-                                            
-                                        </tr>
-                                    </thead>
-                                    
-                                </table>
+                    <%- include("partial/top-nav") %>
+
+                        <!-- Begin Page Content -->
+                        <div class="container-fluid">
+
+                            <!-- Page Heading -->
+                            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                                <h1 class="h3 mb-0 text-gray-800">All Data</h1>
                             </div>
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    
+                                    <h6 class="m-0 font-weight-bold text-primary" type="button" class="btn btn-primary"
+                                        data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">All Data
+                                    </h6>
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Add All</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form action="/admin/addabout" method="post" enctype="multipart/form-data">
+                                                        <div class="form-group">
+                                                            <label class="col-form-label">Content:</label>
+                                                            <input type="text" class="form-control" name="content"
+                                                                placeholder="Content">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-form-label">Image:</label>
+                                                            <input type="file" class="form-control" name="image">
+                                                        </div>
+                                                       
+                                                        <div class="modal-footer form-group">
+                                                            <label class="col-form-label"></label>
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-dismiss="modal">Close</button>
+                                                            <input type="submit" class="btn btn-primary" value="submit">
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" id="myTable" width="100%" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Date</th>
+                                                    <th>Content</th>
+                                                    <th>Image</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <% let count=0; if(abouts.length> 0) {%>
+                                                    <% for(let data of abouts) {%>
+                                                        <tr>
+                                                            <td>
+                                                                <%=data.createAt.toDateString()%>
+                                                            </td>
+                                                            <td>
+                                                                <%=data.content%>
+                                                            </td>
+                                                            <td>
+                                                                <img src="/upload/<%- data.AboutImage%> " alt="img" width="50px" height="50px">
+                                                            </td>
+                                                        </tr>
+                                                        <%} }%>
+                                                </tbody>
+
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
-                    </div>
+                        <!-- End Begin Page Content -->
                 </div>
-            </div>
-            
-            <!-- Footer -->
-            <%- include("partial/footer") %>
+                
+                <!-- new table -->
+                
+
+                <!-- End of Main Content -->
+                <%- include("partial/footer") %>
