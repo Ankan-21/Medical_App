@@ -8,6 +8,10 @@ const path = require('path');
 const app = express();
 const port = 9010;
 
+app.use(express.urlencoded({ extended: true }));
+app.use(body_parser.json());
+app.use(body_parser.urlencoded({ extended: true }));
+app.use(cookie())
 app.use(session({
     cookie: {
         maxAge: 60000
@@ -18,24 +22,24 @@ app.use(session({
 }));
 
 
-app.use(express.urlencoded({ extended: true }));
-app.use(body_parser.json());
-app.use(body_parser.urlencoded({ extended: true }));
-app.use(cookie())
 
+app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 
+const userAuth = require('./middlewares/userAuth')
+app.use(userAuth.authjwt)
 
-app.use(express.static(path.join(__dirname, 'public')));
+const UserRoute = require('./routes/UserRoute');
+app.use(UserRoute);
+
 
 const adminAuth=require('./middlewares/adminAuth')
 app.use(adminAuth.authJwt);
 
-const UserRoute = require('./routes/UserRoute');
-const AdminRoute=require("./routes/AdminRoute")
 
-app.use(UserRoute);
+
+const AdminRoute=require("./routes/AdminRoute")
 app.use("/admin",AdminRoute)
 
 const dbCon = "mongodb+srv://nodeClass:LMoQihMaJfCIw0pQ@cluster0.vimfle7.mongodb.net/Medical";
