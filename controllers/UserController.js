@@ -48,55 +48,17 @@ const doctor = (req, res) => {
 }
 
 const doctor_single = (req, res) => {
-<<<<<<< HEAD
     const id = req.params.id;
     DoctorModel.findById(id).then(result => {
         console.log(result);
         res.render("./user/doctor-single", {
             DoctorData: result,
+            data: req.user
     })
     }).catch(err => {
         console.log(err);
     })}
    
-=======
-    DoctorModel.find({ slug: req.params.slug }).then(result => {
-        res.render("./user/doctor-single", {
-            singleData: result,
-            data: req.user
-        })
-    })
-
-}
-
-
-// const doctor_single = (req, res) => {
-//     PostModel.find({ slug: req.params.slug }).then(result => {
-//         console.log(result);
-//         CommentModel.find().populate("post").exec((err, data) => {
-//             if (!err) {
-//                 console.log(data);
-//                 res.render("viewpost", {
-//                     displayData: result,
-
-
-//                 })
-//             } else {
-//                 console.log(err);
-//             }
-//         })
-//     }).catch(err => {
-//         console.log(err);
-//     })
-// }
-
-
-
-
-
-
-
->>>>>>> 48d02123457b7c35cc55fdc270dd9a6b5ebdad0a
 
 const blog = (req, res) => {
     BlogModel.find((err, result) => {
