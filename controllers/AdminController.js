@@ -52,7 +52,7 @@ const admin_login = (req, res, next) => {
         email: req.body.email
     }, (err, data) => {
         if (data && data.isAdmin) {
-            const hashPassword = data.password;
+            const hashPassword = data.password; 
             if (bcrypt.compareSync(req.body.password, hashPassword)) {
                 const token = jwt.sign({
                     id: data._id,

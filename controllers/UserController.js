@@ -58,12 +58,6 @@ const doctor_single = (req, res) => {
 // }
 
 
-
-
-
-
-
-
 const blog = (req, res) => {
     BlogModel.find((err, data)=>{
         if(!err){
