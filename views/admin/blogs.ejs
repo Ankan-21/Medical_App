@@ -85,6 +85,8 @@
                                                     <th>Subtitle</th>
                                                     <th>PostImage</th>
                                                     <th>Content</th>
+                                                    <th>Status</th>
+                                                    <th>Action</th>
 
 
                                                 </tr>
@@ -94,7 +96,7 @@
                                                     <% for(let data of blogs) {%>
                                                         <tr>
                                                             <td>
-                                                                <%=data.createAt%>
+                                                                <%=data.createAt.toDateString()%>
                                                             </td>
                                                             <td>
                                                                 <%=data.title%>

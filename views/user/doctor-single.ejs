@@ -23,35 +23,33 @@
     <div class="team-area section-padding30">
         <div class="container">
 
+            
             <div class="row">
+
+              
+
                 <div class="col-xl-4 col-lg-4 col-md-6 col-sm-">
                     <div class="single-team mb-30">
-                        <div class="team-img">
-                            <img src="assets/img/gallery/team2.png" alt="">
-                        </div>
 
+                        
+                        <div class="team-img">
+                            <img src="/upload/<%=DoctorData.DoctorImage%>" alt="" class="img-responsive" style="width: 400px; height: 600px;" />
+                        </div>
                     </div>
                 </div>
-
-
                 <div class="col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
                     <div class="well profile">
-                       <div class="col-sm-12">
-
-
-
+                       <div class="col-sm-12">                        
                         <div class="team-caption">
-                            <h2><a href="#"><%- singleData[0].name %></a></h2>
-                            <h5><span>Creative UI Designer</span></h5>
+                            <h2><strong><a href="#"></a></strong><%=DoctorData.name%></h2>
+                            <h5><span></span><%=DoctorData.specialist%></h5>
                             <p></p>
-                               <p><strong>About: </strong> Web Designer / UI. </p>
-                               <p><strong>Hobbies: </strong> Read, out with friends</p>
-                               <p><strong>Skills: </strong>
-                                   <span class="tags">html5</span> 
-                                   <span class="tags">css3</span>
-                                   <span class="tags">jquery</span>
-                                   <span class="tags">bootstrap3</span>
+                               <p><strong>Work Experience : </strong> <%=DoctorData.experience%></p>
+                               <p><strong>Qualification : </strong> <%=DoctorData.qualification%></p>
+                               <p><strong>Email : </strong>
+                                   <span class="tags"><%=DoctorData.email%></span> 
                                </p>
+
                             <!-- Team social -->
                             <div class="team-social">
                                 <a href="#"><i class="fab fa-twitter"></i></a>
@@ -106,10 +104,9 @@
                        </div>
                     </div>                 
                    </div>
-
-
-
             </div>
+           
+
         </div>
     </div>
     <!-- Team End -->

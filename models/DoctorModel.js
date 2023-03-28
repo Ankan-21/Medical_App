@@ -33,7 +33,7 @@ const doctorSchema = new Schema({
     // },
     status:{
         type : Boolean,
-        default : true
+        default : false
     },
     createAt:{
         type : Date,

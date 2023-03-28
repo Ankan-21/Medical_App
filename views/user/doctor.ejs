@@ -34,18 +34,17 @@
                         </div>
                     </div>
                     <div class="row d-flex flex-row">
+                        
                     <% let count=0; if(doctors.length> 0) {%>
                         <% for(let data of doctors) {%>
                             
                                 <div class="col-xl-4 col-lg-4 col-md-6 col-sm-">
                                     <div class="single-team mb-30">
                                         <div class="team-img">
-                                            <img
-                                                src="assets/img/gallery/team2.png"
-                                                alt="">
+                                            <img src="/upload/<%=data.DoctorImage %>" alt="" height="500px" width="100px">
                                         </div>
                                         <div class="team-caption">
-                                            <h3><a href="/doctor-details">
+                                            <h3><a href="/doctor-details/<%=data._id%>">
                                                     <%=data.name%>
                                                 </a></h3>
                                             <span>
