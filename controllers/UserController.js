@@ -194,7 +194,7 @@ const login = (req, res) => {
                 });
                 var mailOptions = {
                     from: req.body.email,
-                    to: "msouvik112@gmail.com",
+                    to: "subhajit.das2406@gmail.com",
                     subject: req.body.subject,
                     text: req.body.firstname+' here'+'\n'+req.body.message
                 };
