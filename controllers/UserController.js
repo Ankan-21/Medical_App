@@ -55,10 +55,36 @@ const doctor_single = (req, res) => {
             DoctorData: result,
             data: req.user
     })
-    }).catch(err => {
-        console.log(err);
-    })}
-   
+    
+}
+
+
+// const doctor_single = (req, res) => {
+//     PostModel.find({ slug: req.params.slug }).then(result => {
+//         console.log(result);
+//         CommentModel.find().populate("post").exec((err, data) => {
+//             if (!err) {
+//                 console.log(data);
+//                 res.render("viewpost", {
+//                     displayData: result,
+                   
+                   
+//                 })
+//             } else {
+//                 console.log(err);
+//             }
+//         })
+//     }).catch(err => {
+//         console.log(err);
+//     })
+// }
+
+
+
+
+
+
+
 
 const blog = (req, res) => {
     BlogModel.find((err, result) => {

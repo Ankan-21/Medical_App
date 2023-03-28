@@ -17,6 +17,8 @@ const blogSchema = new Schema({
     PostImage:{
         type:String,
         required:true
+        type : String,
+        required : true
     },
     status:{
         type : Boolean,
