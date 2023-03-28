@@ -26,14 +26,9 @@ const doctorSchema = new Schema({
         type:String,
         required:true
     },
-    // slug: {
-    //     type: String,
-    //     required: true,
-    //     unique: true
-    // },
     status:{
         type : Boolean,
-        default : false
+        default : true
     },
     createAt:{
         type : Date,

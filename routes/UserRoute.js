@@ -16,10 +16,10 @@ router.post('/signup',[verifysiginin.checkDuplicateEntries], UserController.Crea
 router.get('/', UserController.home);
 router.get('/about', UserController.about);
 router.get('/doctor',UserController.userAuth, UserController.doctor);
-router.get('/doctor-details/:id', UserController.doctor_single);
 router.get('/blog', UserController.blog);
 router.get('/blog-single', UserController.blog_details)
 router.get('/department', UserController.department);
+router.get('/appointment', UserController.Appointment);
 router.get('/contact', UserController.contact);
 
 // User Logout

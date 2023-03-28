@@ -5,12 +5,13 @@ const doctor=(req,res)=>{
     DoctorModel.find((err, data)=>{
         if(!err){
             res.render('./admin/doctor' , {
-                'title' : 'Doctor Page',
+                'title' : 'Admin | Doctor',
                 doctors : data,
             })
         }
     })
 }
+
 
 
 const addDoctor = (req,res)=>{
@@ -31,8 +32,31 @@ const addDoctor = (req,res)=>{
     })
 }
 
+const activeDoctor= (req, res) => {
+    DoctorModel.findByIdAndUpdate(req.params.id, {
+        status: true
+    }).then(result => {
+        console.log("Doctor Activeted...");
+        res.redirect("./doctor");
+    }).catch(err => {
+        console.log(err);
+    })
+}
+
+
+const deActiveDoctor = (req, res) => {
+    DoctorModel.findByIdAndUpdate(req.params.id, {
+        status: false
+    }).then(result => {
+        console.log("Doctor Deactiveted...");
+        res.redirect("./doctor");
+    }).catch(err => {
+        console.log(err);
+    })
+}
 
 module.exports = {
     doctor,
-    addDoctor
+    addDoctor,
+    activeDoctor, deActiveDoctor
 }

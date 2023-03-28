@@ -1,22 +1,26 @@
 const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 
-const blogSchema = new Schema({
-    title:{
+const AppointmentSchema = new Schema({
+    name:{
         type : String,
         required : true
     },
-    subtitle:{
+    phone:{
         type : String,
         required : true
     },
-    content:{
+    email:{
         type : String,
         required : true
     },
-    PostImage:{
+    doctor: {
+        type: Schema.Types.ObjectId,
+        ref: "doctor"
+    },
+    messege:{
         type:String,
-        required:true
+        required:true,
     },
     status:{
         type : Boolean,
@@ -28,6 +32,6 @@ const blogSchema = new Schema({
     }
 })
 
-const SchemaData = new mongoose.model('blog' , blogSchema)
+const appointmentModel = new mongoose.model('appointment' , AppointmentSchema)
 
-module.exports = SchemaData
+module.exports=appointmentModel

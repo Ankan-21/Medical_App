@@ -98,13 +98,13 @@
                                                     <th>Qualification</th>
                                                     <th>Email</th>
                                                     <th>Status</th>
-                                                    <th>Action</th>
+                                                    <th>Operation</th>
 
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                     <% let count=0; if(doctors.length> 0) {%>
-                                                    <% for(let data of doctors) {%>
+                                                    <% for(data of doctors) {%>
                                                         <tr>
                                                             <td>
                                                                 <%=data.createAt.toDateString()%>
@@ -127,16 +127,25 @@
                                                             <td>
                                                                 <%=data.email%>
                                                             </td>
-
+                                                            <td>
+                                                                <%=data.status%>
+                                                            </td>
+                                                            <% if(data.status) {%>
+                                                                <td>
+                                                                    <a href="deactivedoctor/<%=data._id %>" class="btn btn-warning">Deactive</a>
+                                                                </td>
+                                                                <% } else{%>
+                                                                    <td>
+                                                                        <a href="activedoctor/<%=data._id %>" class="btn btn-success">Active</a>
+                                                                    </td>                 
+                                                                    <% } %>
                                                         </tr>
                                                         <%} }%>
                                                 </tbody>
-
                                         </table>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                         <!-- End Begin Page Content -->
                 </div>

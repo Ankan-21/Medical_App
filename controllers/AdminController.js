@@ -29,15 +29,13 @@ const dashboard = (req, res) => {
     }
 }
 
-
-const user=(req,res)=>{
-    res.render("./admin/users")
-}
-
 const AdminAbout=(req,res)=>{
     res.render("./admin/about")
 }
 
+const AdminAppointment=(req,res)=>{
+    res.render("./admin/appointment")
+}
 
 const show_login = (req, res) => {
     loginData = {}
@@ -85,8 +83,60 @@ const logout = (req, res) => {
     res.redirect('/admin')
 }
 
+//  All User Data
+const user=(req,res)=>{
+    UserModel.find().then(result =>{
+        res.render("./admin/users",{
+            title: "Admin | All User Data",
+            data: req.admin,
+            displayData:result
+        })
+    }).catch(err => {
+        console.log(err);
+    })
+    
+}
+
+const activeUser = (req, res) => {
+    UserModel.findByIdAndUpdate(req.params.id, {
+        status: true
+    }).then(result => {
+        console.log("User Activeted...");
+        res.redirect("/admin/users");
+    }).catch(err => {
+        console.log(err);
+    })
+}
+
+
+const deActiveUser = (req, res) => {
+    UserModel.findByIdAndUpdate(req.params.id, {
+        status: false
+    }).then(result => {
+        console.log("User Deactiveted...");
+        res.redirect("/admin/users");
+    }).catch(err => {
+        console.log(err);
+    })
+}
+
+const deleteUser=(req,res)=>{
+    uid=req.params.id
+    UserModel.deleteOne({_id:uid}).then(del=>{
+        res.redirect('/admin/users'),
+        console.log(del,"User deleted successfully");
+    }).catch(err=>{
+        console.log(err);
+    })
+}
+
+
+
+
 module.exports={
     adminAuth,
     show_login,admin_login,logout,
-    dashboard,user, AdminAbout
+    dashboard, AdminAbout,
+    user,activeUser,deActiveUser,deleteUser,
+    AdminAppointment
 }

@@ -44,10 +44,16 @@ const upload = multer({
 
 router.get('/', AdminController.show_login);
 router.post('/sigin', AdminController.admin_login);
-
-router.get('/dashboard',AdminController.adminAuth, AdminController.dashboard);
-router.get('/users',AdminController.adminAuth, AdminController.user);
 router.get('/logout', AdminController.logout)
+
+//Admin DashBoard
+router.get('/dashboard',AdminController.adminAuth, AdminController.dashboard);
+
+//User Page
+router.get('/users',AdminController.adminAuth, AdminController.user);
+router.get("/activeuser/(:id)", AdminController.activeUser);
+router.get("/deactiveuser/(:id)", AdminController.deActiveUser);
+router.get('/remove-user/(:id)', AdminController.deleteUser)
 
 //admin About Page
 router.get('/about',AdminController.adminAuth, AdminController.AdminAbout);
@@ -55,10 +61,15 @@ router.get('/about',AdminController.adminAuth, AdminController.AdminAbout);
 // Doctor Router
 router.get('/doctor',AdminController.adminAuth, DoctorController.doctor);
 router.post('/adddoctor',upload.single('image'), DoctorController.addDoctor)
+router.get("/activedoctor/(:id)", DoctorController.activeDoctor);
+router.get("/deactivedoctor/(:id)", DoctorController.deActiveDoctor);
 
 //Blog Router
 router.get('/blog',AdminController.adminAuth, BlogController.blog);
 router.post('/addblog' ,upload.single('image'), BlogController.addBlog)
+
+//Appointment
+router.get('/appointment', AdminController.adminAuth, AdminController.AdminAppointment)
 
 
 module.exports=router;

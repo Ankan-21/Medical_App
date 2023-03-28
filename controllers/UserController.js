@@ -35,6 +35,12 @@ const department = (req, res) => {
         data: req.user
     })
 }
+
+const Appointment=(req,res)=>{
+    res.render("./user/aapointment",{
+        data:req.user
+    })
+}
 const doctor = (req, res) => {
     DoctorModel.find((err, data) => {
         if (!err) {
@@ -47,17 +53,6 @@ const doctor = (req, res) => {
     })
 }
 
-const doctor_single = (req, res) => {
-    const id=req.params.id;
-    DoctorModel.findById(id).then(result => {
-        console.log(result);
-        res.render("./user/doctor-single", {
-            DoctorData: result,
-            data: req.user
-    })
-    
-})
-}
 
 const blog = (req, res) => {
     BlogModel.find((err, result) => {
@@ -198,6 +193,6 @@ const login = (req, res) => {
     }
 
     module.exports = {
-        home, about, contact, department, doctor, doctor_single, blog, blog_details,
+        home, about, contact, department, doctor, blog, blog_details,Appointment,
         register, CreateRegister, login, signin, sendemail, logout, userAuth
     }
