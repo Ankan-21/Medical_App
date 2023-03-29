@@ -30,14 +30,6 @@ const UserSchema = new Schema({
         type : Date,
         default : Date.now
     },
-
-    // for contact
-
-    emailPass : {
-        type : String,
-        required :true
-    }
-    
 })
 
 const UserModel = mongoose.model("user", UserSchema);
