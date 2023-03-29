@@ -69,6 +69,8 @@ router.get("/deactivedoctor/(:id)", DoctorController.deActiveDoctor);
 //Blog Router
 router.get('/blog',AdminController.adminAuth, BlogController.blog);
 router.post('/addblog' ,upload.single('image'), BlogController.addBlog)
+router.get("/activeblog/(:id)", BlogController.activeBlog);
+router.get("/deactiveblog/(:id)", BlogController.deActiveBlog);
 
 //Appointment
 router.get('/appointment', AdminController.adminAuth, AdminController.AdminAppointment)
