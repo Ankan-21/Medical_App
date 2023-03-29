@@ -35,6 +35,12 @@ const department = (req, res) => {
         data: req.user
     })
 }
+
+const Appointment=(req,res)=>{
+    res.render("./user/aapointment",{
+        data:req.user
+    })
+}
 const doctor = (req, res) => {
     DoctorModel.find((err, data) => {
         if (!err) {
@@ -46,42 +52,6 @@ const doctor = (req, res) => {
         }
     })
 }
-const doctor_single = (req, res) => {
-    DoctorModel.find({ slug: req.params.slug }).then(result => {
-        res.render("./user/doctor-single", {
-            singleData: result,
-            data: req.user
-        })
-    })
-
-}
-
-
-// const doctor_single = (req, res) => {
-//     PostModel.find({ slug: req.params.slug }).then(result => {
-//         console.log(result);
-//         CommentModel.find().populate("post").exec((err, data) => {
-//             if (!err) {
-//                 console.log(data);
-//                 res.render("viewpost", {
-//                     displayData: result,
-
-
-//                 })
-//             } else {
-//                 console.log(err);
-//             }
-//         })
-//     }).catch(err => {
-//         console.log(err);
-//     })
-// }
-
-
-
-
-
-
 
 
 const blog = (req, res) => {
@@ -95,6 +65,7 @@ const blog = (req, res) => {
         }
     })
 }
+
 const blog_details = (req, res) => {
     res.render("./user/blog-details", {
         data: req.user
@@ -222,6 +193,6 @@ const login = (req, res) => {
     }
 
     module.exports = {
-        home, about, contact, department, doctor, doctor_single, blog, blog_details,
+        home, about, contact, department, doctor, blog, blog_details,Appointment,
         register, CreateRegister, login, signin, sendemail, logout, userAuth
     }

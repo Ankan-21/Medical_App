@@ -1,20 +1,12 @@
 const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 
-const doctorSchema = new Schema({
+const AppointmentSchema = new Schema({
     name:{
         type : String,
         required : true
     },
-    specialist:{
-        type : String,
-        required : true
-    },
-    experience:{
-        type : String,
-        required : true
-    },
-    qualification:{
+    phone:{
         type : String,
         required : true
     },
@@ -22,9 +14,13 @@ const doctorSchema = new Schema({
         type : String,
         required : true
     },
-    DoctorImage:{
+    doctor: {
+        type: Schema.Types.ObjectId,
+        ref: "doctor"
+    },
+    messege:{
         type:String,
-        required:true
+        required:true,
     },
     status:{
         type : Boolean,
@@ -32,10 +28,10 @@ const doctorSchema = new Schema({
     },
     createAt:{
         type : Date,
-        default : Date.now
-    },
+        default :Date.now
+    }
 })
 
-const SchemaData = new mongoose.model('doctor' , doctorSchema)
+const appointmentModel = new mongoose.model('appointment' , AppointmentSchema)
 
-module.exports = SchemaData
+module.exports=appointmentModel

@@ -1,34 +1,31 @@
 const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 
-const doctorSchema = new Schema({
-    name:{
+const aboutSchema = new Schema({
+    title:{
         type : String,
         required : true
     },
-    specialist:{
+    subtitle:{
         type : String,
-        required : true
+         required : true
     },
-    experience:{
-        type : String,
-        required : true
-    },
-    qualification:{
-        type : String,
-        required : true
-    },
-    email:{
-        type : String,
-        required : true
-    },
-    DoctorImage:{
+    Image:{
         type:String,
         required:true
     },
+    content:{
+        type : String,
+        required : true
+    },
+    writer:{
+        type : String,
+        required : true
+    },
+   
     status:{
         type : Boolean,
-        default : true
+        default : false
     },
     createAt:{
         type : Date,
@@ -36,6 +33,6 @@ const doctorSchema = new Schema({
     },
 })
 
-const SchemaData = new mongoose.model('doctor' , doctorSchema)
+const SchemaData = new mongoose.model('about' , aboutSchema)
 
 module.exports = SchemaData

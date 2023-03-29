@@ -18,10 +18,10 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
-    // status: {
-    //     type: Boolean,
-    //     default: true
-    // },
+    status: {
+        type: Boolean,
+        default: true
+    },
     isAdmin: {
         type: Boolean,
         default: false

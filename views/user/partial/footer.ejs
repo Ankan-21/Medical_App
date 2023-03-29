@@ -114,5 +114,63 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 <script src="./assets/js/plugins.js"></script>
 <script src="./assets/js/main.js"></script>
 
+
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+
+
+
+
+
+
+
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+	<script>
+		// just for the demos, avoids form submit
+		jQuery.validator.setDefaults({
+		  	debug: true,
+		  	success:  function(label){
+        		label.attr('id', 'valid');
+   		 	},
+		});
+		$( "#myform" ).validate({
+		  	rules: {
+			    password: "required",
+		    	comfirm_password: {
+		      		equalTo: "#password"
+		    	}
+		  	},
+		  	messages: {
+		  		first_name: {
+		  			required: "Please enter a firstname"
+		  		},
+		  		last_name: {
+		  			required: "Please enter a lastname"
+		  		},
+		  		your_email: {
+		  			required: "Please provide an email"
+		  		},
+		  		password: {
+	  				required: "Please enter a password"
+		  		},
+		  		comfirm_password: {
+		  			required: "Please enter a password",
+		      		equalTo: "Wrong Password"
+		    	}
+		  	}
+		});
+	</script>
+
 </body>
 </html>
