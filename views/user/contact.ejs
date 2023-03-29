@@ -30,6 +30,11 @@
 	</div>
 	<!-- Hero End -->
         <!-- ================ contact section start ================= -->
+        <% if(message.length>0){%>
+            <div class="<%-alert%>" role="alert">
+              <%=message%>
+            </div>   
+            <%}%> 
         <section class="contact-section">
             <div class="container">
                 <div class="container-fluid mt-5">
@@ -47,7 +52,7 @@
                         <h2 class="contact-title">Get in Touch</h2>
                     </div>
                     <div class="col-lg-8">
-                        <form class="form-contact contact_form" action="/sendemail" method="post" >
+                        <form class="form-contact contact_form" action="/createContact" method="post" >
                             <div class="row">
                                 <div class="col-12">
                                     <div class="form-group">
@@ -74,7 +79,7 @@
                                         <input class="form-control" name="subject"  type="text"  placeholder="Enter Subject">
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary btn-user btn-block">Register</button>
+                                <button type="submit" class="btn btn-primary btn-user btn-block">SEND</button>
                             </div>
                         </form>
                     </div>

@@ -11,6 +11,7 @@ router.post('/signin', UserController.signin)
 // Admin And User Register
 router.get('/register', UserController.register)
 router.post('/signup',[verifysiginin.checkDuplicateEntries], UserController.CreateRegister)
+router.get("/confirmation/:email/:token", UserController.conformation);
 
 // All User Pages
 router.get('/', UserController.home);
@@ -21,12 +22,12 @@ router.get('/blog-single', UserController.blog_details)
 router.get('/department', UserController.department);
 router.get('/appointment', UserController.Appointment);
 router.get('/contact', UserController.contact);
+router.post('/createContact' , UserController.createContact)
 
 // User Logout
 router.get('/logout', UserController.logout)
 
-// User Mail Send
-router.post('/sendemail' , UserAuth.authjwt, UserController.sendemail)
+
 
 
 module.exports=router;

@@ -29,7 +29,32 @@ const addBlog = (req,res)=>{
     })
 }
 
+const activeBlog= (req, res) => {
+    BlogModel.findByIdAndUpdate(req.params.id, {
+        status: true
+    }).then(result => {
+        console.log("Blog Activeted...");
+        res.redirect("./blog");
+    }).catch(err => {
+        console.log(err);
+    })
+}
+
+
+const deActiveBlog = (req, res) => {
+    BlogModel.findByIdAndUpdate(req.params.id, {
+        status: false
+    }).then(result => {
+        console.log("Blog Deactiveted...");
+        res.redirect("./blog");
+    }).catch(err => {
+        console.log(err);
+    })
+}
+
 module.exports = {
     blog,
-    addBlog
+    addBlog,
+    activeBlog,
+    deActiveBlog
 }

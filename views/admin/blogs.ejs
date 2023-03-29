@@ -111,8 +111,18 @@
                                                             <td>
                                                                 <%=data.content%>
                                                             </td>
-
-
+                                                            <td>
+                                                                <%=data.status%>
+                                                            </td>
+                                                            <% if(data.status) {%>
+                                                                <td>
+                                                                    <a href="deactiveblog/<%=data._id %>" class="btn btn-warning">Deactive</a>
+                                                                </td>
+                                                                <% } else{%>
+                                                                    <td>
+                                                                        <a href="activeblog/<%=data._id %>" class="btn btn-success">Active</a>
+                                                                    </td>                 
+                                                                    <% } %>
                                                         </tr>
                                                         <%} }%>
                                                 </tbody>

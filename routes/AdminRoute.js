@@ -5,6 +5,7 @@ const path =require('path');
 const AdminController=require("../controllers/AdminController");
 const DoctorController = require('../controllers/DoctorController')
 const BlogController = require('../controllers/BlogController')
+const AboutController=require('../controllers/AboutController')
 
 
 router.use(express.static('public'));
@@ -56,7 +57,8 @@ router.get("/deactiveuser/(:id)", AdminController.deActiveUser);
 router.get('/remove-user/(:id)', AdminController.deleteUser)
 
 //admin About Page
-router.get('/about',AdminController.adminAuth, AdminController.AdminAbout);
+router.get('/about',AdminController.adminAuth,AboutController.AdminAbout);
+router.post('/addabout',upload.single('image'),AboutController.addAbout)
 
 // Doctor Router
 router.get('/doctor',AdminController.adminAuth, DoctorController.doctor);
@@ -67,6 +69,8 @@ router.get("/deactivedoctor/(:id)", DoctorController.deActiveDoctor);
 //Blog Router
 router.get('/blog',AdminController.adminAuth, BlogController.blog);
 router.post('/addblog' ,upload.single('image'), BlogController.addBlog)
+router.get("/activeblog/(:id)", BlogController.activeBlog);
+router.get("/deactiveblog/(:id)", BlogController.deActiveBlog);
 
 //Appointment
 router.get('/appointment', AdminController.adminAuth, AdminController.AdminAppointment)

@@ -9,6 +9,12 @@
 					<div class="col-xl-12" style="margin-top:-20vh">
 						<div class="hero-cap hero-cap2 text-center">
 							<h2>LogIn</h2>
+							<% if (message.length > 0) { %>
+								<div class="alert">
+									<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+									<strong><%=message%></strong>
+								</div>
+								<% } %>
 						</div>
 					</div>
 				</div>
