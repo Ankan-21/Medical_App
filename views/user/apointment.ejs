@@ -47,12 +47,17 @@
                                                         <div class="section-tittle section-tittle2">
                                                             <span>Appointment Apply Form</span>
                                                             <h2>Appointment Form</h2>
+                                                            <% if (message.length > 0) { %>
+                                                                <div class="alert-success">
+                                                                    <strong><%=message%></strong>
+                                                                </div>
+                                                                <% } %>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <!--End Section Tittle  -->
-                                            <form id="contact-form" action="#" method="POST">
+                                            <form id="contact-form" action="/addAppointment" method="POST">
                                                 <div class="row">
                                                     <div class="col-lg-6 col-md-6">
                                                         <div class="form-box user-icon mb-30">
@@ -61,24 +66,23 @@
                                                     </div>
                                                     <div class="col-lg-6 col-md-6">
                                                         <div class="form-box email-icon mb-30">
-                                                            <input type="text" name="email" placeholder="Phone">
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    <div class="col-lg-6 col-md-6 mb-30">
-                                                        <div class="select-itms" placeholder="Time">
-                                                            <select name="select" id="select2" >
-                                                                <option value="">Morning (8:30AM - 12PM)</option>
-                                                                <option value="">Afternoon (2:30PM - 5PM)</option>
-                                                                <option value="">Evening (6PM - 9PM)</option>
-                                                                <option value="">Emergency</option>
-                                                            </select>
+                                                            <input type="text" name="phone" placeholder="Phone">
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-6 col-md-6">
-                                                        <div class="form-box subject-icon mb-30">
-                                                            <input type="Email" name="subject" placeholder="Email">
+                                                        <div class="form-box  mb-30">
+                                                            <input type="date"  name="bookAt"  placeholder="Please a valid Date">
                                                         </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 mb-30">
+                                                        <div class="select-itms" placeholder="Specialist">
+                                                            <select name="specialist" id="select3" >
+                                                                <% for(let data of displaydata){ %>
+                                                                    <option value="<%=data.id %>"><%=data.specialist%></option>
+                                                                <% } %>
+                                                            </select>
+                                                        </div>
+                                                    </div>
                                                     </div>
                                                     <div class="col-lg-12">
                                                         <div class="form-box message-icon mb-65">

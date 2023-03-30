@@ -5,6 +5,7 @@ const AboutModel = require('../models/AboutModel');
 const TokenModel = require('../models/TokenModel');
 const ContectModel = require('../models/ContactModel');
 const CategoryModel = require('../models/CategoryModel')
+const AppointmentModel = require('../models/AppointmentModel')
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer')
@@ -261,8 +262,15 @@ const department = (req, res) => {
 // Appointment
 
 const Appointment = (req, res) => {
-    res.render("./user/apointment", {
-        data: req.user
+    AppointmentModel.find().then(result=>{
+        CategoryModel.find().then(data=>{
+            res.render('./user/apointment',{
+                displayresult : result,
+                displaydata : data,
+                data: req.user,
+                message : req.flash('message')
+            })
+        })
     })
 }
 const addAppoiment = (req, res)=>{

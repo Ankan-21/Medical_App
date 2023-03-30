@@ -21,6 +21,8 @@ router.get('/blog', UserController.blog);
 router.get('/blog-single', UserController.blog_details)
 router.get('/department', UserController.department);
 router.get('/appointment',UserController.userAuth, UserController.Appointment);
+router.post('/addAppointment' , UserController.addAppoiment)
+
 router.get('/contact', UserController.contact);
 router.post('/createContact' , UserController.createContact)
 
