@@ -26,7 +26,10 @@ router.get('/contact', UserController.contact);
 router.post('/createContact' , UserController.createContact)
 
 //Category
-router.get('/cardiologist', UserController.Cardiologist)
+router.get('/Dentist', UserController.Dentist)
+router.get('/Cardiology', UserController.Cardiology)
+router.get('/Physician', UserController.Physician)
+router.get('/Astrology', UserController.Astrology)
 
 // User Logout
 router.get('/logout', UserController.logout)

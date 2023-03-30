@@ -4,6 +4,7 @@ const BlogModel = require('../models/BlogModel');
 const AboutModel =require('../models/AboutModel');
 const TokenModel = require('../models/TokenModel');
 const ContectModel = require('../models/ContactModel');
+const CategoryModel = require('../models/CategoryModel')
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer')
@@ -77,11 +78,11 @@ const createContact = (req,res)=>{
 // }
 
 const department = (req, res) => {
-    DoctorModel.find((err, data) => {
+    CategoryModel.find((err, data) => {
         if (!err) {
             res.render('./user/department', {
                 'title': 'Doctor Page',
-                doctors: data,
+                categorys: data,
                 data: req.user
             })
         }
@@ -268,16 +269,51 @@ const logout = (req, res) => {
 }
 
 
-const Cardiologist=(req,res)=>{
-    DoctorModel.aggregate([{$match:{specialist:"cardiologist"}}]).save().then(result=>{
-        res.redirect('./department',{
-            doctors: data,
+const Cardiology=(req,res)=>{
+    DoctorModel.aggregate([{$match:{specialist:"Cardiology"}}]).then(result=>{
+        res.redirect('./user/doctor',{
+            doctors: result,
             data: req.user
         })
     })
 }
 
+const Dentist = (req,res)=>{
+    DoctorModel.aggregate([{$match:{specialist:"Dentist"}}]).then(result=>{
+        res.render('./user/doctor',{
+            doctors: result,
+            data: req.user
+        })
+    })
+}
+const Physician = (req,res)=>{
+    DoctorModel.aggregate([{$match:{specialist:"Physician"}}]).then(result=>{
+        res.render('./user/doctor',{
+            doctors: result,
+            data: req.user
+        })
+    })
+}
+const Astrology = (req,res)=>{
+    DoctorModel.aggregate([{$match:{specialist:"Astrology"}}]).then(result=>{
+        res.render('./user/doctor',{
+            doctors: result,
+            data: req.user
+        })
+    })
+}
+const BloodScreening = (req,res)=>{
+    DoctorModel.aggregate([{$match:{specialist:"Blood Screening"}}]).then(result=>{
+        res.render('./user/doctor',{
+            doctors: result,
+            data: req.user
+        })
+    })
+}
+
+
 module.exports = {
     home, about, contact, createContact, department, doctor, blog, blog_details, Appointment,
-    register, CreateRegister, conformation, login, signin, logout, userAuth, Cardiologist
+    register, CreateRegister, conformation, login, signin, logout, userAuth, Cardiology , Dentist,
+    Physician, Astrology, BloodScreening
 }
