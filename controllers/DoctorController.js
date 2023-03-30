@@ -25,20 +25,21 @@ const addDoctor = (req,res)=>{
         DoctorImage:req.file.filename,
     })
     doctordata.save().then(data=>{
-        res.redirect('./doctor')
+        res.redirect('/admin/doctor')
         console.log(data);
     }).catch(err=>{
-        res.redirect('./doctor')
+        res.redirect('/admin/doctor')
         console.log(err);
     })
 }
 
 const activeDoctor= (req, res) => {
-    DoctorModel.findByIdAndUpdate(req.params.id, {
+    const did=req.params.id;
+    DoctorModel.findByIdAndUpdate(did, {
         status: true
     }).then(result => {
         console.log("Doctor Activeted...");
-        res.redirect("./doctor");
+        res.redirect("/admin/doctor");
     }).catch(err => {
         console.log(err);
     })
@@ -46,11 +47,12 @@ const activeDoctor= (req, res) => {
 
 
 const deActiveDoctor = (req, res) => {
-    DoctorModel.findByIdAndUpdate(req.params.id, {
+    const did=req.params.id;
+    DoctorModel.findByIdAndUpdate(did, {
         status: false
     }).then(result => {
         console.log("Doctor Deactiveted...");
-        res.redirect("./doctor");
+        res.redirect("/admin/doctor");
     }).catch(err => {
         console.log(err);
     })

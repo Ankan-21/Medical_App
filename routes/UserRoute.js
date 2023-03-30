@@ -17,7 +17,7 @@ router.get("/confirmation/:email/:token", UserController.conformation);
 // All User Pages
 router.get('/', UserController.home);
 router.get('/about', UserController.about);
-router.get('/doctor',UserController.userAuth, UserController.doctor);
+router.get('/doctor', UserController.doctor);
 router.get('/blog', UserController.blog);
 router.get('/blog-single', UserController.blog_details)
 router.get('/department', UserController.department);

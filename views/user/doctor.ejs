@@ -46,7 +46,7 @@
                     <div class="row d-flex flex-row">
                         
                     <% let count=0; if(doctors.length> 0) {%>
-                        <% for(let data of doctors) {%>
+                        <% for(let data of doctors) { if(data.status){%>
                             
                                 <div class="col-xl-4 col-lg-4 col-md-6 col-sm-">
                                     <div class="single-team mb-30">
@@ -76,7 +76,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <%} }%>
+                                <%} } }%>
                             </div>
                         </div>
                                    

@@ -1,4 +1,6 @@
 const UserModel=require('../models/UserModel');
+const appointmentModel=require('../models/AppointmentModel')
+const CategoryModel=require('../models/CategoryModel')
 const bcrypt=require('bcryptjs');
 const jwt=require('jsonwebtoken');
 const cookie=require('cookie-parser')
@@ -31,10 +33,6 @@ const dashboard = (req, res) => {
 
 const AdminAbout=(req,res)=>{
     res.render("./admin/about")
-}
-
-const AdminAppointment=(req,res)=>{
-    res.render("./admin/appointment")
 }
 
 const show_login = (req, res) => {
@@ -130,13 +128,96 @@ const deleteUser=(req,res)=>{
     })
 }
 
+// Appointment data stored in admin dashboard
+const AdminAppointment=(req,res)=>{
+    appointmentModel.find().then(result =>{
+        res.render("./admin/appointment",{
+            title: "Admin | Appointment",
+            data: req.admin,
+            AppointmentData:result
+        })
+    }).catch(err => {
+        console.log(err);
+    })
+    
+}
+
+const DeleteAppointment=(req,res)=>{
+    aid=req.params.id
+    appointmentModel.deleteOne({_id:aid}).then(del=>{
+        res.redirect('./admin/appointment'),
+        console.log(del,"Appointment deleted successfully");
+    }).catch(err=>{
+        console.log(err);
+    })
+}
+
+
+// Category
+
+const Category=(req,res)=>{
+    CategoryModel.find().then(result=>{
+       res.render('./admin/category',{
+           title:"Admin || Category",
+          data: req.admin,
+          categorys:result
+       })
+    }).catch(err=>{
+       console.log(err);
+    })
+   
+}
+
+const addCategory = (req, res) => {
+    const categorydata = new CategoryModel({
+        specialist: req.body.specialist,
+        catImage: req.file.filename,
+    })
+    categorydata.save().then(data => {
+        res.redirect('/admin/category')
+        console.log(data);
+    }).catch(err => {
+        res.redirect('/admin/category')
+        console.log(err);
+    })
+}
+
+const activeCategory = (req, res) => {
+    const cid=req.params.id;
+    CategoryModel.findByIdAndUpdate(cid,{
+        status:true
+    }).then(result => {
+        console.log(result);
+        console.log("Activeted...");
+        res.redirect("/admin/category");
+    }).catch(err => {
+        console.log(err);
+    })
+}
+
+
+const deActiveCategory = (req, res) => {
+    const cid=req.params.id;
+    CategoryModel.findByIdAndUpdate(cid, {
+        status:false
+    }).then(result => {
+        console.log(result);
+        console.log(" Deactiveted...");
+        res.redirect("/admin/category");
+    }).catch(err => {
+        console.log(err);
+    })
+}
+
+
 
 
 
 module.exports={
     adminAuth,
     show_login,admin_login,logout,
-    dashboard, AdminAbout,
+    dashboard,AdminAbout,
     user,activeUser,deActiveUser,deleteUser,
-    AdminAppointment
+    AdminAppointment,DeleteAppointment,
+    Category,addCategory,activeCategory,deActiveCategory 
 }

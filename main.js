@@ -42,7 +42,7 @@ app.use(adminAuth.authJwt);
 
 
 const AdminRoute=require("./routes/AdminRoute")
-app.use("/admin",AdminRoute)
+app.use(AdminRoute)
 
 const dbCon = "mongodb+srv://nodeClass:LMoQihMaJfCIw0pQ@cluster0.vimfle7.mongodb.net/Medical";
 mongoose.connect(dbCon, { useNewUrlParser: true, useUnifiedTopology: true })

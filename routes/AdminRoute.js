@@ -43,39 +43,46 @@ const upload = multer({
 
 
 
-router.get('/', AdminController.show_login);
-router.post('/sigin', AdminController.admin_login);
-router.get('/logout', AdminController.logout)
+router.get('/admin', AdminController.show_login);
+router.post('/admin/sigin', AdminController.admin_login);
+router.get('/admin/logout', AdminController.logout)
 
 //Admin DashBoard
-router.get('/dashboard',AdminController.adminAuth, AdminController.dashboard);
+router.get('/admin/dashboard',AdminController.adminAuth, AdminController.dashboard);
 
 //User Page
-router.get('/users',AdminController.adminAuth, AdminController.user);
-router.get("/activeuser/(:id)", AdminController.activeUser);
-router.get("/deactiveuser/(:id)", AdminController.deActiveUser);
-router.get('/remove-user/(:id)', AdminController.deleteUser)
+router.get('/admin/users',AdminController.adminAuth, AdminController.user);
+router.get("/admin/activeuser/(:id)", AdminController.activeUser);
+router.get("/admin/deactiveuser/(:id)", AdminController.deActiveUser);
+router.get('/admin/remove-user/(:id)', AdminController.deleteUser)
 
 //admin About Page
-router.get('/about',AdminController.adminAuth,AboutController.AdminAbout);
-router.post('/addabout',upload.single('image'),AboutController.addAbout)
-router.get("/activeHeadline/(:id)", AboutController.activeHeadline);
-router.get("/deactiveHeadline/(:id)", AboutController.deActiveHeadline);
+router.get('/admin/about',AdminController.adminAuth,AboutController.AdminAbout);
+router.post('/admin/addabout',upload.single('image'),AboutController.addAbout)
+router.get("/admin/activeHeadline/(:id)", AboutController.activeHeadline);
+router.get("/admin/deactiveHeadline/(:id)", AboutController.deActiveHeadline);
 
 // Doctor Router
-router.get('/doctor',AdminController.adminAuth, DoctorController.doctor);
-router.post('/adddoctor',upload.single('image'), DoctorController.addDoctor)
-router.get("/activedoctor/(:id)", DoctorController.activeDoctor);
-router.get("/deactivedoctor/(:id)", DoctorController.deActiveDoctor);
+router.get('/admin/doctor',AdminController.adminAuth, DoctorController.doctor);
+router.post('/admin/adddoctor',upload.single('image'), DoctorController.addDoctor)
+router.get("/admin/activedoctor/(:id)", DoctorController.activeDoctor);
+router.get("/admin/deactivedoctor/:id", DoctorController.deActiveDoctor);
 
 //Blog Router
-router.get('/blog',AdminController.adminAuth, BlogController.blog);
-router.post('/addblog' ,upload.single('image'), BlogController.addBlog)
-router.get("/activeblog/(:id)", BlogController.activeBlog);
-router.get("/deactiveblog/(:id)", BlogController.deActiveBlog);
+router.get('/admin/blog',AdminController.adminAuth, BlogController.blog);
+router.post('/admin/addblog' ,upload.single('image'), BlogController.addBlog)
+router.get("/admin/activeblog/(:id)", BlogController.activeBlog);
+router.get("/admin/deactiveblog/(:id)", BlogController.deActiveBlog);
 
 //Appointment
-router.get('/appointment', AdminController.adminAuth, AdminController.AdminAppointment)
+router.get('/admin/appointment', AdminController.adminAuth, AdminController.AdminAppointment)
+
+
+//Category
+router.get('/admin/category', AdminController.Category)
+router.post('/admin/addcategory',upload.single('image'), AdminController.addCategory);
+router.get("/admin/activeCategory/:id", AdminController.activeCategory);
+router.get("/admin/deactiveCategory/:id", AdminController.deActiveCategory);
 
 
 module.exports=router;

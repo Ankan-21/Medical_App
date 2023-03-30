@@ -43,6 +43,8 @@
                 </div>
             </div>
             <div class="row">
+                <% let count=0; if(doctors.length> 0) {%>
+                    <% for(let data of doctors) { if(data.status){%>
                 <div class="col-lg-12">
                     <div class="depart_ment_tab mb-30">
                         <!-- Tabs Buttons -->
@@ -54,7 +56,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="/cardiologist" role="tab" aria-controls="profile" aria-selected="false">
+                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">
                                     <i class="flaticon-cardiovascular"></i>
                                     <h4>Cardiology</h4>
                                 </a>
@@ -111,41 +113,11 @@
                         <!-- single_content  -->
                         <div class="row align-items-center no-gutters">
                             <div class="col-lg-7">
-                                <div class="row d-flex flex-row">
-                        
-                                    <% let count=0; if(doctors.length> 0) {%>
-                                        <% for(let data of doctors) {%>
-                                            
-                                                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-">
-                                                    <div class="single-team mb-30">
-                                                        <div class="team-img">
-                                                            <img src="/upload/<%=data.DoctorImage %>" alt="" height="500px" width="100px">
-                                                        </div>
-                                                        <div class="team-caption">
-                                                            <h3><a href="#">
-                                                                    <%=data.name%>
-                                                                </a></h3>
-                                                            <span>
-                                                                <%=data.specialist%>
-                                                            </span>
-                                                            <span>
-                                                                <%=data.experience%>
-                                                            </span>
-                                                            <span>
-                                                                <%=data.qualification%>
-                                                            </span>
-                                                            <!-- Team social -->
-                                                            <div class="team-social">
-                                                                <a href="#"><i class="fab fa-twitter"></i></a>
-                                                                <a href="#"><i class="fas fa-globe"></i></a>
-                                                                <a href="#"><i class="fab fa-facebook-f"></i></a>                                                 
-                                                            </div>
-                                                            <a href="/appointment" class="btn btn-info" role="button" style="margin-top: 10px; margin-left:50px">Appointment</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <%} }%>
-                                            </div>
+                                <div class="dept_info">
+                                    <h3>Dentist with surgical mask holding <br> scaler near patient</h3 >
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. </p>
+                                    <a href="#" class="dep-btn">Appointment<i class="ti-arrow-right"></i></a>
+                                </div>
                             </div>
                             <div class="col-lg-5">
                                 <div class="dept_thumb">

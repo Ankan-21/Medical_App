@@ -47,8 +47,12 @@
                                                         </div>
                                                         <div class="form-group">
                                                             <label class="col-form-label">Specialist:</label>
-                                                            <input type="text" class="form-control" name="specialist"
-                                                                placeholder="Specialist">
+                                                              <select class="form-select" name="specialist" aria-label="Default select example">
+                                                                <option selected>Open this select menu</option>
+                                                                <option value="Dentist">Dentist</option>
+                                                                <option value="Cardiology">Cardiology</option>
+                                                                <option value="physician">physician</option>
+                                                              </select>
                                                         </div>
                                                         <div class="form-group">
                                                             <label class="col-form-label">Experience:</label>
@@ -132,11 +136,11 @@
                                                             </td>
                                                             <% if(data.status) {%>
                                                                 <td>
-                                                                    <a href="deactivedoctor/<%=data._id %>" class="btn btn-warning">Deactive</a>
+                                                                    <a href="/admin/deactivedoctor/<%=data._id %>" class="btn btn-warning">Deactive</a>
                                                                 </td>
                                                                 <% } else{%>
                                                                     <td>
-                                                                        <a href="activedoctor/<%=data._id %>" class="btn btn-success">Active</a>
+                                                                        <a href="/admin/activedoctor/<%=data._id %>" class="btn btn-success">Active</a>
                                                                     </td>                 
                                                                     <% } %>
                                                         </tr>
