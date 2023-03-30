@@ -239,16 +239,18 @@ const deleteUser=(req,res)=>{
 
 // Appointment data stored in admin dashboard
 const AdminAppointment=(req,res)=>{
-    appointmentModel.find().then(result =>{
-        res.render("./admin/appointment",{
-            title: "Admin | Appointment",
-            data: req.admin,
-            AppointmentData:result
+    appointmentModel.find().then(result=>{
+        CategoryModel.find().then(data=>{
+            res.render('./admin/appointment',{
+                appointmentdata : result,
+                categorydata : data
+            })
+        }).catch(err=>{
+            console.log(err);
         })
-    }).catch(err => {
+    }).catch(err=>{
         console.log(err);
     })
-    
 }
 
 const DeleteAppointment=(req,res)=>{

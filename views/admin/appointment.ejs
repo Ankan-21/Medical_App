@@ -37,15 +37,15 @@
                                             <th>Appointment Date</th>
                                             <th>Patient Name</th>
                                             <th>Contact</th>
-                                            <th>Doctor</th>
+                                            <th>Specialist</th>
                                             <th>Status</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <%let count=1; 
-                                        if(AppointmentData.length >0) {
-                                            for(data of AppointmentData) {%> 
+                                        if(appointmentdata.length >0) {
+                                            for(data of appointmentdata) {%> 
                                             
                                                 <tr>
                                                     <td>
@@ -56,16 +56,16 @@
                                                     </td>
                                                     
                                                     <td>
-                                                        <%- data.name %>
+                                                        <%-data.name %>
                                                     </td>
                                                     <td>
-                                                        <%- data.phone%>
+                                                        <%-data.phone%>
                                                     </td>
                                                     <td>
-                                                        <%-data.doctor%>
+                                                        <%-data.specialist%>
                                                     </td>
                                                     <td>
-                                                        <%- data.status%>
+                                                        <%-data.status%>
                                                     </td>
                                                         <td>
                                                             <a href="/admin/remove-appointment/<%- data._id %>" class="btn btn-danger">Delete</a>

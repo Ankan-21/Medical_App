@@ -5,6 +5,7 @@ const AboutModel = require('../models/AboutModel');
 const TokenModel = require('../models/TokenModel');
 const ContectModel = require('../models/ContactModel');
 const CategoryModel = require('../models/CategoryModel')
+const AppointmentModel = require('../models/AppointmentModel')
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer')
@@ -260,10 +261,36 @@ const department = (req, res) => {
 }
 
 const Appointment = (req, res) => {
-    res.render("./user/apointment", {
-        data: req.user
+    AppointmentModel.find().then(result=>{
+        CategoryModel.find().then(data=>{
+            res.render('./user/apointment',{
+                displayresult : result,
+                displaydata : data,
+                data: req.user,
+                message : req.flash('message')
+            })
+        })
     })
 }
+
+const addAppoiment = (req, res)=>{
+    AppointmentModel({
+        name : req.body.name,
+        phone : req.body.phone,
+        bookAt : req.body.bookAt,
+        specialist : req.body.specialist,
+        message : req.body.message
+    }).save().then(result=>{
+        res.redirect("/appointment")
+        req.flash("message", "Appointment Book successfully")
+        console.log(result);
+    }).catch(err=>{
+        console.log(err);
+        res.redirect('/appointment')
+        req.flash("message", "Appointment Book Failed")
+    })
+}
+
 const doctor = (req, res) => {
     DoctorModel.find((err, data) => {
         if (!err) {
@@ -376,6 +403,7 @@ module.exports = {
     blog,
     blog_details,
     Appointment,
+    addAppoiment,
 
     Cardiology,
     Dentist,

@@ -10,13 +10,13 @@ const AppointmentSchema = new Schema({
         type : String,
         required : true
     },
-    email:{
+    bookAt:{
         type : String,
         required : true
     },
-    doctor: {
+    specialist: {
         type: Schema.Types.ObjectId,
-        ref: "doctor"
+        ref: "category"
     },
     messege:{
         type:String,
