@@ -42,10 +42,11 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <% let count=0; if(categorys.length> 0) {%>
-                    <% for(let data of categorys) { if(data.status){%>
+            <div class="row d-flex flex-row">
+                
                 <div class="col-lg-12">
+                    <% let count=0; if(categorys.length> 0) {%>
+                        <% for(let data of categorys) { if(data.status){%>
                     <div class="depart_ment_tab mb-30">
                         <!-- Tabs Buttons -->
                         <ul class="nav" id="myTab" role="tablist">
@@ -58,8 +59,9 @@
                             
                         </ul>
                     </div>
+                    <%} } }%>
                 </div>
-                <%} } }%>
+                
             </div>
             <div class="dept_main_info white-bg">
                 <div class="tab-content" id="myTabContent">

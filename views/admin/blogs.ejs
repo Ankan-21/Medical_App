@@ -93,7 +93,7 @@
                                             </thead>
                                             <tbody>
                                                     <% let count=0; if(blogs.length> 0) {%>
-                                                    <% for(let data of blogs) {%>
+                                                    <% for(let data of blogs) { if(data.status)%>
                                                         <tr>
                                                             <td>
                                                                 <%=data.createAt.toDateString()%>
@@ -109,18 +109,18 @@
 
                                                             </td>
                                                             <td>
-                                                                <%=data.content%>
+                                                                <%=data.content.slice(0,500)+"..."%>
                                                             </td>
                                                             <td>
                                                                 <%=data.status%>
                                                             </td>
                                                             <% if(data.status) {%>
                                                                 <td>
-                                                                    <a href="deactiveblog/<%=data._id %>" class="btn btn-warning">Deactive</a>
+                                                                    <a href="/admin/deactiveblog/<%=data._id %>" class="btn btn-warning">Deactive</a>
                                                                 </td>
                                                                 <% } else{%>
                                                                     <td>
-                                                                        <a href="activeblog/<%=data._id %>" class="btn btn-success">Active</a>
+                                                                        <a href="/admin/activeblog/<%=data._id %>" class="btn btn-success">Active</a>
                                                                     </td>                 
                                                                     <% } %>
                                                         </tr>

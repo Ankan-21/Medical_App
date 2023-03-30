@@ -1,11 +1,13 @@
 const UserModel=require('../models/UserModel');
+const AboutModel=require('../models/AboutModel');
+const BlogModel = require('../models/BlogModel')
 const appointmentModel=require('../models/AppointmentModel')
 const CategoryModel=require('../models/CategoryModel')
 const bcrypt=require('bcryptjs');
 const jwt=require('jsonwebtoken');
 const cookie=require('cookie-parser')
 
-
+// Admin Auth
 const adminAuth = (req, res, next) => {
     if (req.admin) {
         console.log(req.admin);
@@ -16,25 +18,7 @@ const adminAuth = (req, res, next) => {
     }
 }
 
-
-const dashboard = (req, res) => {
-    if (req.admin) {
-        UserModel.find({}, function(err) {
-            if (!err) {
-                res.render("admin/dashboard", {
-                    data: req.admin
-                })
-            } else {
-                console.log(err);
-            }
-        })
-    }
-}
-
-const AdminAbout=(req,res)=>{
-    res.render("./admin/about")
-}
-
+// Admin Login
 const show_login = (req, res) => {
     loginData = {}
     loginData.email = (req.cookies.email) ? req.cookies.email : undefined
@@ -76,10 +60,135 @@ const admin_login = (req, res, next) => {
 }
 
 
+// Admin Logout
 const logout = (req, res) => {
     res.clearCookie("adminToken")
     res.redirect('/admin')
 }
+
+// Admin Dashboard
+const dashboard = (req, res) => {
+    if (req.admin) {
+        UserModel.find({}, function(err) {
+            if (!err) {
+                res.render("admin/dashboard", {
+                    data: req.admin
+                })
+            } else {
+                console.log(err);
+            }
+        })
+    }
+}
+
+
+// Admin About Data
+
+const AdminAbout=(req,res)=>{
+    AboutModel.find((err, data)=>{
+        if(!err){
+            res.render('./admin/about' , {
+                'title' : 'About Page',
+                data:req.admin,
+                abouts : data,
+            })
+        }
+    })
+}
+
+const addAbout = (req,res)=>{
+    const aboutdata = new AboutModel({
+        content : req.body.content,
+        AboutImage:req.file.filename,
+    })
+    aboutdata.save().then(data=>{
+        res.redirect('./about')
+        console.log(data);
+    }).catch(err=>{
+        res.redirect('./about')
+        console.log(err);
+    })
+}
+
+const activeHeadline= (req, res) => {
+    aid=req.params.id
+    AboutModel.findByIdAndUpdate(aid, {
+        status: true
+    }).then(result => {
+        console.log("Headline Activeted...");
+        res.redirect("/admin/about");
+    }).catch(err => {
+        console.log(err);
+    })
+}
+
+const deActiveHeadline = (req, res) => {
+    aid=req.params.id
+    AboutModel.findByIdAndUpdate(aid, {
+        status: false
+    }).then(result => {
+        console.log("Headline Deactiveted...");
+        res.redirect("/admin/about");
+    }).catch(err => {
+        console.log(err);
+    })
+}
+
+// Admin Blog Data
+const blog=(req,res)=>{
+    BlogModel.find((err, data)=>{
+        if(!err){
+            res.render('./admin/blogs' , {
+                'title' : 'Blog Page',
+                blogs : data,
+            })
+        }
+    })
+}
+
+
+const addBlog = (req,res)=>{
+    const blogdata = new BlogModel({
+        title : req.body.title,
+        subtitle : req.body.subtitle,
+        content : req.body.content,
+        PostImage : req.file.filename,
+    })
+    blogdata.save().then(data=>{
+        res.redirect('/admin/blog')
+        console.log(data);
+    }).catch(err=>{
+        res.redirect('/admin/blog')
+        console.log(err);
+    })
+}
+
+const activeBlog= (req, res) => {
+    const bid=req.params.id
+    BlogModel.findByIdAndUpdate(bid, {
+        status: true
+    }).then(result => {
+        console.log("Blog Activeted...");
+        res.redirect("/admin/blog");
+    }).catch(err => {
+        console.log(err);
+    })
+}
+
+
+const deActiveBlog = (req, res) => {
+    const bid=req.params.id
+    BlogModel.findByIdAndUpdate(bid,{
+        status: false
+    }).then(result => {
+        console.log("Blog Deactiveted...");
+        res.redirect("/admin/blog");
+    }).catch(err => {
+        console.log(err);
+    })
+}
+
+
 
 //  All User Data
 const user=(req,res)=>{
@@ -145,7 +254,7 @@ const AdminAppointment=(req,res)=>{
 const DeleteAppointment=(req,res)=>{
     aid=req.params.id
     appointmentModel.deleteOne({_id:aid}).then(del=>{
-        res.redirect('./admin/appointment'),
+        res.redirect('/admin/appointment'),
         console.log(del,"Appointment deleted successfully");
     }).catch(err=>{
         console.log(err);
@@ -153,7 +262,7 @@ const DeleteAppointment=(req,res)=>{
 }
 
 
-// Category
+// Category Data 
 
 const Category=(req,res)=>{
     CategoryModel.find().then(result=>{
@@ -215,9 +324,18 @@ const deActiveCategory = (req, res) => {
 
 module.exports={
     adminAuth,
+
     show_login,admin_login,logout,
-    dashboard,AdminAbout,
+
+    dashboard,
+
+    AdminAbout,addAbout,activeHeadline,deActiveHeadline,
+
+    blog,addBlog,activeBlog,deActiveBlog,
+
     user,activeUser,deActiveUser,deleteUser,
+
     AdminAppointment,DeleteAppointment,
+
     Category,addCategory,activeCategory,deActiveCategory 
 }

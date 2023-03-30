@@ -1,7 +1,7 @@
 const UserModel = require('../models/UserModel');
 const DoctorModel = require('../models/DoctorModel')
 const BlogModel = require('../models/BlogModel');
-const AboutModel =require('../models/AboutModel');
+const AboutModel = require('../models/AboutModel');
 const TokenModel = require('../models/TokenModel');
 const ContectModel = require('../models/ContactModel');
 const CategoryModel = require('../models/CategoryModel')
@@ -10,6 +10,9 @@ const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer')
 const crypto = require('crypto')
 const flash = require('connect-flash')
+
+
+// User Auth
 
 const userAuth = (req, res, next) => {
     if (req.user) {
@@ -21,109 +24,7 @@ const userAuth = (req, res, next) => {
     }
 }
 
-const home = (req, res) => {
-    res.render("./user/index", {
-        data: req.user
-    })
-}
-// const about = (req, res) => {
-//     res.render("./user/about", {
-//         data: req.user
-//     })
-// }
-
-const about = (req, res) => {
-    AboutModel.find((err, data) => {
-        if (!err) {
-            res.render('./user/about', {
-                'title': 'About',
-                AboutData: data,
-                data: req.user
-            })
-        }
-    })
-}
-
-const contact = (req, res) => {
-    res.render("./user/contact", {
-        data: req.user,
-        message : req.flash('message'),
-        alert : req.flash('message')
-    })
-}
-
-const createContact = (req,res)=>{
-    const contectdata = new ContectModel({
-        firstname : req.body.firstname,
-        lastname : req.body.lastname,
-        email : req.body.email,
-        subject : req.body.subject,
-        message : req.body.message,
-    })
-    contectdata.save().then(data=>{
-        req.flash('message' , 'Thank you for Contect us. we gives our best')
-        res.redirect('/contact')
-        console.log(data);
-    }).catch(err=>{
-        req.flash('message' , 'Contect failed....')
-        res.redirect('/contact')
-    })
-}
-
-// const department = (req, res) => {
-//     res.render("./user/department", {
-//         data: req.user,
-//         doctors: data,
-//     })
-// }
-
-const department = (req, res) => {
-    CategoryModel.find((err, data) => {
-        if (!err) {
-            res.render('./user/department', {
-                'title': 'Doctor Page',
-                categorys: data,
-                data: req.user
-            })
-        }
-    })
-}
-
-const Appointment = (req, res) => {
-    res.render("./user/apointment", {
-        data: req.user
-    })
-}
-const doctor = (req, res) => {
-    DoctorModel.find((err, data) => {
-        if (!err) {
-            res.render('./user/doctor', {
-                'title': 'Doctor Page',
-                doctors: data,
-                data: req.user
-            })
-        }
-    })
-}
-
-
-const blog = (req, res) => {
-    BlogModel.find((err, result) => {
-        if (!err) {
-            res.render('./user/blog', {
-                'title': 'Blog Page',
-                blogs: result,
-                data: req.user
-            })
-        }
-    })
-}
-
-const blog_details = (req, res) => {
-    res.render("./user/blog-details", {
-        data: req.user
-    })
-}
+// Register
 
 const register = (req, res) => {
     res.render("./user/register", {
@@ -182,6 +83,8 @@ const CreateRegister = (req, res) => {
     })
 }
 
+// Mail Verification
+
 const conformation = (req, res) => {
     TokenModel.findOne({ token: req.params.token }, (err, token) => {
         if (!token) {
@@ -207,6 +110,8 @@ const conformation = (req, res) => {
         }
     })
 }
+
+// Login
 
 const login = (req, res) => {
     loginData = {}
@@ -240,7 +145,6 @@ const signin = (req, res) => {
                     }
                     console.log("login success",);
                     console.log(data.firstname);
-
                     res.redirect("/blog");
                 } else {
                     console.log("Invalid Password...");
@@ -262,49 +166,191 @@ const signin = (req, res) => {
     })
 }
 
-
+// User Logout
 const logout = (req, res) => {
     res.clearCookie("token");
     res.redirect("/");
 }
 
-
-const Cardiology=(req,res)=>{
-    DoctorModel.aggregate([{$match:{specialist:"Cardiology"}}]).then(result=>{
-        res.redirect('./user/doctor',{
-            doctors: result,
-            data: req.user
+const home = (req, res) => {
+    AboutModel.find().then(data => {
+        DoctorModel.find().limit(3).then(result => {
+            BlogModel.find().then(blogdata => {
+                res.render("./user/index", {
+                    title: "Home",
+                    data: req.user,
+                    AboutData: data,
+                    doctors: result,
+                    blogs: blogdata,
+                    // message: req.flash("message"),
+                    // alert: req.flash("alert"),
+                })
+            }).catch(error => {
+                console.log(error);
+            })
+        }).catch(err => {
+            console.log(err);
         })
+    }).catch(err => {
+        console.log(err);
     })
 }
 
-const Dentist = (req,res)=>{
-    DoctorModel.aggregate([{$match:{specialist:"Dentist"}}]).then(result=>{
-        res.render('./user/doctor',{
+
+const about = (req, res) => {
+    AboutModel.find().then(data => {
+        DoctorModel.find().limit(3).then(result => {
+            res.render("./user/about", {
+                title: "About Us",
+                data: req.user,
+                AboutData: data,
+                doctors: result,
+                // message: req.flash("message"),
+                // alert: req.flash("alert"),
+            })
+        }).catch(error => {
+            console.log(error);
+        })
+
+    }).catch(err => {
+        console.log(err);
+    })
+}
+
+
+
+// User Contact Page
+const contact = (req, res) => {
+    res.render("./user/contact", {
+        data: req.user,
+        message: req.flash('message'),
+        alert: req.flash('message')
+    })
+}
+
+const createContact = (req, res) => {
+    const contectdata = new ContectModel({
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        email: req.body.email,
+        subject: req.body.subject,
+        message: req.body.message,
+    })
+    contectdata.save().then(data => {
+        req.flash('message', 'Thank you for Contect us. we gives our best')
+        res.redirect('/contact')
+        console.log(data);
+    }).catch(err => {
+        req.flash('message', 'Contect failed....')
+        res.redirect('/contact')
+    })
+}
+
+
+const department = (req, res) => {
+    CategoryModel.find((err, data) => {
+        if (!err) {
+            res.render('./user/department', {
+                'title': 'Doctor Page',
+                categorys: data,
+                data: req.user
+            })
+        }
+    })
+}
+
+const Appointment = (req, res) => {
+    res.render("./user/apointment", {
+        data: req.user
+    })
+}
+const doctor = (req, res) => {
+    DoctorModel.find((err, data) => {
+        if (!err) {
+            res.render('./user/doctor', {
+                'title': 'Doctor Page',
+                doctors: data,
+                data: req.user
+            })
+        }
+    })
+}
+
+// User Blog
+const blog = (req, res) => {
+    BlogModel.find().sort('-createdAt').then(result => {
+        res.render("./user/blog", {
+            title: "Blog",
+            data: req.user,
+            blogs: result,
+            // message: req.flash("message"),
+            // alert: req.flash("alert"),
+        })
+    }).catch(error => {
+        console.log(error);
+    })
+}
+
+// const blog_details = (req, res) => {
+//     res.render("./user/blog-details", {
+//         data: req.user
+//     })
+// }
+
+const blog_details = (req, res) => {
+    BlogModel.find().sort('-createdAt').then(result => {
+        res.render("./user/blog-details", {
+            title: "Blog",
+            data: req.user,
+            blogs: result,
+            message: req.flash("message"),
+            alert: req.flash("alert"),
+        })
+    }).catch(error => {
+        console.log(error);
+    })
+}
+
+
+
+// For User Department 
+
+const Cardiology = (req, res) => {
+    DoctorModel.aggregate([{ $match: { specialist: "Cardiology" } }]).then(result => {
+        res.redirect('./user/doctor', {
             doctors: result,
             data: req.user
         })
     })
 }
-const Physician = (req,res)=>{
-    DoctorModel.aggregate([{$match:{specialist:"Physician"}}]).then(result=>{
-        res.render('./user/doctor',{
+
+const Dentist = (req, res) => {
+    DoctorModel.aggregate([{ $match: { specialist: "Dentist" } }]).then(result => {
+        res.render('./user/doctor', {
             doctors: result,
             data: req.user
         })
     })
 }
-const Astrology = (req,res)=>{
-    DoctorModel.aggregate([{$match:{specialist:"Astrology"}}]).then(result=>{
-        res.render('./user/doctor',{
+const Neurology = (req, res) => {
+    DoctorModel.aggregate([{ $match: { specialist: "Neurology" } }]).then(result => {
+        res.render('./user/doctor', {
             doctors: result,
             data: req.user
         })
     })
 }
-const BloodScreening = (req,res)=>{
-    DoctorModel.aggregate([{$match:{specialist:"Blood Screening"}}]).then(result=>{
-        res.render('./user/doctor',{
+const Gastrology = (req, res) => {
+    DoctorModel.aggregate([{ $match: { specialist: "Gastrology" } }]).then(result => {
+        res.render('./user/doctor', {
+            doctors: result,
+            data: req.user
+        })
+    })
+}
+const Arthrology = (req, res) => {
+    DoctorModel.aggregate([{ $match: { specialist: "Arthrology" } }]).then(result => {
+        res.render('./user/doctor', {
             doctors: result,
             data: req.user
         })
@@ -313,7 +359,27 @@ const BloodScreening = (req,res)=>{
 
 
 module.exports = {
-    home, about, contact, createContact, department, doctor, blog, blog_details, Appointment,
-    register, CreateRegister, conformation, login, signin, logout, userAuth, Cardiology , Dentist,
-    Physician, Astrology, BloodScreening
+    userAuth,
+    register,
+    CreateRegister,
+    conformation,
+    login,
+    signin,
+    logout,
+
+    home,
+    about,
+    contact,
+    createContact,
+    department,
+    doctor,
+    blog,
+    blog_details,
+    Appointment,
+
+    Cardiology,
+    Dentist,
+    Neurology,
+    Gastrology,
+    Arthrology
 }

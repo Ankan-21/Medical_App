@@ -36,8 +36,8 @@
                     <div class="col-lg-8 mb-5 mb-lg-0">
                         <div class="blog_left_sidebar">
                             <% let count=0; if(blogs.length> 0) {%>
-                                <% for(let data of blogs) {%>
-                            <article class="blog_item">
+                                <% for(let data of blogs) { if(data.status){%>
+                            <article class="blog_item"href="/blog-single">
                                 <div class="blog_item_img">
                                     <img class="card-img rounded-0" src="/upload/<%=data.PostImage %>" alt="" height="400px" width="700px">
                                     <a href="#" class="blog_item_date">
@@ -46,17 +46,18 @@
                                     </a>
                                 </div>
                                 <div class="blog_details">
-                                    <a class="d-inline-block" href="blog_details.html">
+                                    <a class="d-inline-block" href="/blog-single">
                                         <h1 class="blog-head" style="color: #2d2d2d;"><%=data.title%></h1>
                                         <h3 class="blog-head" style="color: #2d2d2d;"><%=data.subtitle%></h3>
                                     </a>
-                                    <h4 class="blog-head" style="color: #2d2d2d;"><%=data.content%></h4>
+                                    <h4 class="blog-head" style="color: #2d2d2d;"><%=data.content.slice(0,400)+"..."%></h4>
+                                    <h3><a href="/blog-single" class="read-more1">Read more</a></h3>
                                     <p></p>
                                     <ul class="blog-info-link">
                                     </ul>
                                 </div>
                             </article>
-                            <%} }%>
+                            <%} } }%>
                             <nav class="blog-pagination justify-content-center d-flex">
                                 <ul class="pagination">
                                     <li class="page-item">
@@ -100,44 +101,18 @@
                            
                             <aside class="single_sidebar_widget popular_post_widget">
                                 <h3 class="widget_title" style="color: #2d2d2d;">Recent Post</h3>
+                                <% for(data of blogs) { if(data.status) {%>
                                 <div class="media post_item">
-                                    <img src="assets/img/post/post_1.png" alt="post">
+                                    <img src="/upload/<%=data.PostImage %>" alt="" class="img-responsive" style="width: 90px; height: 100px;" />
                                     <div class="media-body">
-                                        <a href="blog_details.html">
-                                            <h3 style="color: #2d2d2d;">From life was you fish...</h3>
-                                        </a>
-                                        <p>January 12, 2019</p>
+                                        <h4 style="color: #2d2d2d"><a href=""> </a><%-data.title %></h4>
+                                        <time datetime="2020-01-01"><%-data.createAt.toDateString()%></time>
+                                      </div>            
+                                        </a>        
                                     </div>
-                                </div>
-                                <div class="media post_item">
-                                    <img src="assets/img/post/post_2.png" alt="post">
-                                    <div class="media-body">
-                                        <a href="blog_details.html">
-                                            <h3 style="color: #2d2d2d;">The Amazing Hubble</h3>
-                                        </a>
-                                        <p>02 Hours ago</p>
-                                    </div>
-                                </div>
-                                <div class="media post_item">
-                                    <img src="assets/img/post/post_3.png" alt="post">
-                                    <div class="media-body">
-                                        <a href="blog_details.html">
-                                            <h3 style="color: #2d2d2d;">Astronomy Or Astrology</h3>
-                                        </a>
-                                        <p>03 Hours ago</p>
-                                    </div>
-                                </div>
-                                <div class="media post_item">
-                                    <img src="assets/img/post/post_4.png" alt="post">
-                                    <div class="media-body">
-                                        <a href="blog_details.html">
-                                            <h3 style="color: #2d2d2d;">Asteroids telescope</h3>
-                                        </a>
-                                        <p>01 Hours ago</p>
-                                    </div>
+                                    <% }} %>
                                 </div>
                             </aside>
-
                         </div>
                     </div>
                 </div>
