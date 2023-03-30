@@ -258,12 +258,29 @@ const department = (req, res) => {
         }
     })
 }
+// Appointment
 
 const Appointment = (req, res) => {
     res.render("./user/apointment", {
         data: req.user
     })
 }
+const addAppoiment = (req, res)=>{
+    AppointmentModel({
+        name : req.body.name,
+        phone : req.body.phone,
+        bookAt : req.body.bookAt,
+        doctor : req.body.category,
+        message : req.body.message,
+    }).save().then(result=>{
+        res.redirect("/appointment")
+        req.flash("message", "Appointment Book successfully")
+    })
+}
+
+
+
+// Doctor
 const doctor = (req, res) => {
     DoctorModel.find((err, data) => {
         if (!err) {
@@ -376,6 +393,7 @@ module.exports = {
     blog,
     blog_details,
     Appointment,
+    addAppoiment,
 
     Cardiology,
     Dentist,
