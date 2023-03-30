@@ -59,6 +59,8 @@ router.get('/remove-user/(:id)', AdminController.deleteUser)
 //admin About Page
 router.get('/about',AdminController.adminAuth,AboutController.AdminAbout);
 router.post('/addabout',upload.single('image'),AboutController.addAbout)
+router.get("/activeHeadline/(:id)", AboutController.activeHeadline);
+router.get("/deactiveHeadline/(:id)", AboutController.deActiveHeadline);
 
 // Doctor Router
 router.get('/doctor',AdminController.adminAuth, DoctorController.doctor);

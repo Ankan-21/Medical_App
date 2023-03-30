@@ -16,8 +16,7 @@ const AdminAbout=(req,res)=>{
 const addAbout = (req,res)=>{
     const aboutdata = new AboutModel({
         content : req.body.content,
-        Image:req.file.filename,
-
+        AboutImage:req.file.filename,
     })
     aboutdata.save().then(data=>{
         res.redirect('./about')
@@ -27,7 +26,33 @@ const addAbout = (req,res)=>{
         console.log(err);
     })
 }
+
+const activeHeadline= (req, res) => {
+    id=req.params.id
+    AboutModel.findByIdAndUpdate(_id=id, {
+        status: true
+    }).then(result => {
+        console.log("Headline Activeted...");
+        res.redirect("./about");
+    }).catch(err => {
+        console.log(err);
+    })
+}
+
+
+const deActiveHeadline = (req, res) => {
+    AboutModel.findByIdAndUpdate(req.params.id, {
+        status: false
+    }).then(result => {
+        console.log("Headline Deactiveted...");
+        res.redirect("./about");
+    }).catch(err => {
+        console.log(err);
+    })
+}
 module.exports={
     AdminAbout,
-    addAbout
+    addAbout,
+    activeHeadline,
+    deActiveHeadline
 }

@@ -1,5 +1,6 @@
 const router=require('express').Router();
 const UserController=require("../controllers/UserController");
+const CategoryController=require('../controllers/Category')
 const verifysiginin=require('../middlewares/verifysignin');
 const UserAuth = require('../middlewares/userAuth')
 
@@ -23,6 +24,9 @@ router.get('/department', UserController.department);
 router.get('/appointment', UserController.Appointment);
 router.get('/contact', UserController.contact);
 router.post('/createContact' , UserController.createContact)
+
+//Category
+router.get('/cardiologist', UserController.Cardiologist)
 
 // User Logout
 router.get('/logout', UserController.logout)

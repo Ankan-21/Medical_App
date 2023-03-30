@@ -1,8 +1,9 @@
 const UserModel = require('../models/UserModel');
 const DoctorModel = require('../models/DoctorModel')
-const BlogModel = require('../models/BlogModel')
-const TokenModel = require('../models/TokenModel')
-const ContectModel = require('../models/ContactModel')
+const BlogModel = require('../models/BlogModel');
+const AboutModel =require('../models/AboutModel');
+const TokenModel = require('../models/TokenModel');
+const ContectModel = require('../models/ContactModel');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer')
@@ -24,11 +25,24 @@ const home = (req, res) => {
         data: req.user
     })
 }
+// const about = (req, res) => {
+//     res.render("./user/about", {
+//         data: req.user
+//     })
+// }
+
 const about = (req, res) => {
-    res.render("./user/about", {
-        data: req.user
+    AboutModel.find((err, data) => {
+        if (!err) {
+            res.render('./user/about', {
+                'title': 'About',
+                AboutData: data,
+                data: req.user
+            })
+        }
     })
 }
+
 const contact = (req, res) => {
     res.render("./user/contact", {
         data: req.user,
@@ -55,14 +69,27 @@ const createContact = (req,res)=>{
     })
 }
 
+// const department = (req, res) => {
+//     res.render("./user/department", {
+//         data: req.user,
+//         doctors: data,
+//     })
+// }
+
 const department = (req, res) => {
-    res.render("./user/department", {
-        data: req.user
+    DoctorModel.find((err, data) => {
+        if (!err) {
+            res.render('./user/department', {
+                'title': 'Doctor Page',
+                doctors: data,
+                data: req.user
+            })
+        }
     })
 }
 
 const Appointment = (req, res) => {
-    res.render("./user/aapointment", {
+    res.render("./user/apointment", {
         data: req.user
     })
 }
@@ -125,8 +152,8 @@ const CreateRegister = (req, res) => {
                         secure: false,
                         requireTLS: true,
                         auth: {
-                            user: "subhajit.das2406@gmail.com",
-                            pass: "spxwouggkkkqcsrz"
+                            user: "rjbag8942@gmail.com",
+                            pass: "nzihsbgwmlthcigc"
                         }
                     });
                     var mailOptions = {
@@ -240,7 +267,17 @@ const logout = (req, res) => {
     res.redirect("/");
 }
 
+
+const Cardiologist=(req,res)=>{
+    DoctorModel.aggregate([{$match:{specialist:"cardiologist"}}]).save().then(result=>{
+        res.redirect('./department',{
+            doctors: data,
+            data: req.user
+        })
+    })
+}
+
 module.exports = {
     home, about, contact, createContact, department, doctor, blog, blog_details, Appointment,
-    register, CreateRegister, conformation, login, signin, logout, userAuth
+    register, CreateRegister, conformation, login, signin, logout, userAuth, Cardiologist
 }

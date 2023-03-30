@@ -7,6 +7,7 @@ const doctor=(req,res)=>{
             res.render('./admin/doctor' , {
                 'title' : 'Admin | Doctor',
                 doctors : data,
+                data:req.admin,
             })
         }
     })

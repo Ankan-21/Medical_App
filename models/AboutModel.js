@@ -2,30 +2,17 @@ const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 
 const aboutSchema = new Schema({
-    title:{
-        type : String,
-        required : true
-    },
-    subtitle:{
-        type : String,
-         required : true
-    },
-    Image:{
+    AboutImage:{
         type:String,
-        required:true
+        required:false
     },
     content:{
         type : String,
         required : true
     },
-    writer:{
-        type : String,
-        required : true
-    },
-   
     status:{
         type : Boolean,
-        default : false
+        default : true
     },
     createAt:{
         type : Date,

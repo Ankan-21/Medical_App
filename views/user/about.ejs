@@ -44,7 +44,10 @@
                             <span>About Our Company</span>
                             <h2>Welcome To Our Hospital</h2>
                         </div>
-                        <p>Committed to deliver world-class quality, Our hospital Centres are equipped with state-of-the-art equipment from GE, Schiller, Beckman Coulter, Siemens, Roche Diagnostic, Biorat D10, Variant Turbo, Biomerieux, Phillips etc. The technology is backed by high calibre diagnosticians: Radiologists, Biochemists, Pathologists, Microbiologists as well as skilled technicians. Diagnostic services range from Radiology to Pathology, Histopathology, Molecular Biology, Cytogenetics, Cardiology, Gastroenterology and Neurology tests.</p>
+                        <% let count=0; if(AboutData.length> 0) {%>
+                            <% for(let data of AboutData) {%>
+                        <p><%=data.content%></p>
+                        <p></p>
                         <div class="about-btn1 mb-30">
                             <a href="/doctor" class="btn about-btn">Find Doctors<i class="ti-arrow-right"></i></a>
                         </div>
@@ -57,13 +60,15 @@
                     <!-- about-img -->
                     <div class="about-img ">
                         <div class="about-font-img d-none d-lg-block">
-                            <img src="assets/img/gallery/about2.png" alt="">
+                            <img src="/upload/<%=data.AboutImage %>" alt="" height="700px" width="500px">
                         </div>
                         <div class="about-back-img ">
                             <img src="assets/img/gallery/about1.png" alt="">
                         </div>
                     </div>
                 </div>
+                <%} }%>
+
             </div>
         </div>
     </div>
