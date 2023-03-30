@@ -3,14 +3,15 @@ const DoctorModel = require('../models/DoctorModel')
 const BlogModel = require('../models/BlogModel');
 const AboutModel = require('../models/AboutModel');
 const TokenModel = require('../models/TokenModel');
+const CommentModel = require('../models/CommentModel');
 const ContectModel = require('../models/ContactModel');
-const CategoryModel = require('../models/CategoryModel')
-const AppointmentModel = require('../models/AppointmentModel')
+const CategoryModel = require('../models/CategoryModel');
+const AppointmentModel = require('../models/AppointmentModel');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const nodemailer = require('nodemailer')
-const crypto = require('crypto')
-const flash = require('connect-flash')
+const nodemailer = require('nodemailer');
+const crypto = require('crypto');
+const flash = require('connect-flash');
 
 
 // User Auth
@@ -29,6 +30,7 @@ const userAuth = (req, res, next) => {
 
 const register = (req, res) => {
     res.render("./user/register", {
+        'title': '+Medical || Registration',
         data: req.user,
         message: req.flash('message'),
     })
@@ -118,9 +120,8 @@ const login = (req, res) => {
     loginData = {}
     loginData.email = (req.cookies.email) ? req.cookies.email : undefined
     loginData.password = (req.cookies.password) ? req.cookies.password : undefined
-
     res.render("./user/login-register", {
-        title: "Login-Registration",
+        title: "+Medical || Login",
         data: req.user,
         data1: loginData,
         message: req.flash('message'),
@@ -178,7 +179,7 @@ const home = (req, res) => {
         DoctorModel.find().limit(3).then(result => {
             BlogModel.find().then(blogdata => {
                 res.render("./user/index", {
-                    title: "Home",
+                    'title': '+Medical || Home',
                     data: req.user,
                     AboutData: data,
                     doctors: result,
@@ -202,7 +203,7 @@ const about = (req, res) => {
     AboutModel.find().then(data => {
         DoctorModel.find().limit(3).then(result => {
             res.render("./user/about", {
-                title: "About Us",
+                'title': '+Medical || About Us',
                 data: req.user,
                 AboutData: data,
                 doctors: result,
@@ -223,6 +224,7 @@ const about = (req, res) => {
 // User Contact Page
 const contact = (req, res) => {
     res.render("./user/contact", {
+        'title': '+Medical || Contact us',
         data: req.user,
         message: req.flash('message'),
         alert: req.flash('message')
@@ -252,7 +254,7 @@ const department = (req, res) => {
     CategoryModel.find((err, data) => {
         if (!err) {
             res.render('./user/department', {
-                'title': 'Doctor Page',
+                'title': '+Medical || Department',
                 categorys: data,
                 data: req.user
             })
@@ -262,25 +264,26 @@ const department = (req, res) => {
 // Appointment
 
 const Appointment = (req, res) => {
-    AppointmentModel.find().then(result=>{
-        CategoryModel.find().then(data=>{
-            res.render('./user/apointment',{
-                displayresult : result,
-                displaydata : data,
+    AppointmentModel.find().then(result => {
+        CategoryModel.find().then(data => {
+            res.render('./user/apointment', {
+                'title': '+Medical || Appointment',
+                displayresult: result,
+                displaydata: data,
                 data: req.user,
-                message : req.flash('message')
+                message: req.flash('message')
             })
         })
     })
 }
-const addAppoiment = (req, res)=>{
+const addAppoiment = (req, res) => {
     AppointmentModel({
-        name : req.body.name,
-        phone : req.body.phone,
-        bookAt : req.body.bookAt,
-        doctor : req.body.category,
-        message : req.body.message,
-    }).save().then(result=>{
+        name: req.body.name,
+        phone: req.body.phone,
+        bookAt: req.body.bookAt,
+        doctor: req.body.category,
+        message: req.body.message,
+    }).save().then(result => {
         res.redirect("/appointment")
         req.flash("message", "Appointment Book successfully")
     })
@@ -293,7 +296,7 @@ const doctor = (req, res) => {
     DoctorModel.find((err, data) => {
         if (!err) {
             res.render('./user/doctor', {
-                'title': 'Doctor Page',
+                'title': '+Medical || Doctor',
                 doctors: data,
                 data: req.user
             })
@@ -305,7 +308,7 @@ const doctor = (req, res) => {
 const blog = (req, res) => {
     BlogModel.find().sort('-createdAt').then(result => {
         res.render("./user/blog", {
-            title: "Blog",
+            'title': '+Medical || Blog',
             data: req.user,
             blogs: result,
             // message: req.flash("message"),
@@ -316,23 +319,40 @@ const blog = (req, res) => {
     })
 }
 
-// const blog_details = (req, res) => {
-//     res.render("./user/blog-details", {
-//         data: req.user
-//     })
-// }
+
 
 const blog_details = (req, res) => {
     BlogModel.find().sort('-createdAt').then(result => {
-        res.render("./user/blog-details", {
-            title: "Blog",
-            data: req.user,
-            blogs: result,
-            message: req.flash("message"),
-            alert: req.flash("alert"),
+        CommentModel.find().sort('-createdAt').then(data => {
+            res.render("./user/blog-details", {
+                'title': '+Medical || Blog details',
+                data: req.user,
+                blogs: result,
+                comment:data,
+                message: req.flash("message"),
+                alert: req.flash("alert"),
+            })
+        }).catch(error => {
+            console.log(error);
         })
     }).catch(error => {
         console.log(error);
+    })
+}
+
+// Comment section
+const addComment = (req, res) => {
+    CommentModel({
+        comment: req.body.comment,
+        name: req.body.name,
+        email: req.body.email,
+        website: req.body.website,
+    }).save().then(result => {
+        console.log("Comment Added...");
+        res.redirect("/blog-single");
+    }).catch(err => {
+        console.log("Comment Not Added...", err);
+        res.redirect("/blog-single");
     })
 }
 
@@ -402,6 +422,7 @@ module.exports = {
     blog_details,
     Appointment,
     addAppoiment,
+    addComment,
 
     Cardiology,
     Dentist,

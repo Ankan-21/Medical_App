@@ -1,11 +1,12 @@
 const UserModel=require('../models/UserModel');
 const AboutModel=require('../models/AboutModel');
-const BlogModel = require('../models/BlogModel')
-const appointmentModel=require('../models/AppointmentModel')
-const CategoryModel=require('../models/CategoryModel')
+const BlogModel = require('../models/BlogModel');
+const CommentModel=require('../models/CommentModel');
+const appointmentModel=require('../models/AppointmentModel');
+const CategoryModel=require('../models/CategoryModel');
 const bcrypt=require('bcryptjs');
 const jwt=require('jsonwebtoken');
-const cookie=require('cookie-parser')
+const cookie=require('cookie-parser');
 
 // Admin Auth
 const adminAuth = (req, res, next) => {
@@ -39,6 +40,8 @@ const admin_login = (req, res, next) => {
             if (bcrypt.compareSync(req.body.password, hashPassword)) {
                 const token = jwt.sign({
                     id: data._id,
+                    name:data.name,
+                    // picture:data.image,
                     email: data.email
                 }, "med@123", { expiresIn: '5h' });
                 res.cookie("adminToken", token);
@@ -141,6 +144,7 @@ const blog=(req,res)=>{
             res.render('./admin/blogs' , {
                 'title' : 'Blog Page',
                 blogs : data,
+                data:req.admin
             })
         }
     })
@@ -205,7 +209,8 @@ const user=(req,res)=>{
 }
 
 const activeUser = (req, res) => {
-    UserModel.findByIdAndUpdate(req.params.id, {
+    const uid=req.params.id;
+    UserModel.findByIdAndUpdate(uid, {
         status: true
     }).then(result => {
         console.log("User Activeted...");
@@ -217,7 +222,8 @@ const activeUser = (req, res) => {
 
 
 const deActiveUser = (req, res) => {
-    UserModel.findByIdAndUpdate(req.params.id, {
+    const uid=req.params.id;
+    UserModel.findByIdAndUpdate(uid, {
         status: false
     }).then(result => {
         console.log("User Deactiveted...");
@@ -243,7 +249,8 @@ const AdminAppointment=(req,res)=>{
         CategoryModel.find().then(data=>{
             res.render('./admin/appointment',{
                 appointmentdata : result,
-                categorydata : data
+                categorydata : data,
+                data:req.admin
             })
         }).catch(err=>{
             console.log(err);
@@ -321,6 +328,56 @@ const deActiveCategory = (req, res) => {
 }
 
 
+// Comment Section 
+
+const CommentData=(req,res)=>{
+    CommentModel.find().then(result=>{
+       res.render('./admin/comment',{
+           title:"Admin || Comment's",
+          data: req.admin,
+          comments:result
+       })
+    }).catch(err=>{
+       console.log(err);
+    })
+   
+}
+
+const activeUComment = (req, res) => {
+    coid=req.params.id
+    CommentModel.findByIdAndUpdate(coid, {
+        status: true
+    }).then(result => {
+        console.log("Comment Activeted...");
+        res.redirect("/admin/Comment");
+    }).catch(err => {
+        console.log(err);
+    })
+}
+
+
+const deActiveComment = (req, res) => {
+    coid=req.params.id
+    CommentModel.findByIdAndUpdate(coid, {
+        status: false
+    }).then(result => {
+        console.log("Comment Deactiveted...");
+        res.redirect("/admin/Comment");
+    }).catch(err => {
+        console.log(err);
+    })
+}
+
+const deleteComment =(req,res)=>{
+    coid=req.params.id
+    CommentModel.deleteOne({_id:coid}).then(del=>{
+        res.redirect('/admin/comment'),
+        console.log(del,"Comment deleted successfully");
+    }).catch(err=>{
+        console.log(err);
+    })
+}
+
 
 
 
@@ -339,5 +396,7 @@ module.exports={
 
     AdminAppointment,DeleteAppointment,
 
-    Category,addCategory,activeCategory,deActiveCategory 
+    Category,addCategory,activeCategory,deActiveCategory, 
+
+    CommentData,activeUComment,deActiveComment,deleteComment
 }

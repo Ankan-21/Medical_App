@@ -76,12 +76,16 @@ router.get("/admin/deactiveblog/(:id)", AdminController.deActiveBlog);
 router.get('/admin/appointment', AdminController.adminAuth, AdminController.AdminAppointment)
 router.get('/admin/remove-appointment/(:id)', AdminController.DeleteAppointment)
 
-
 //Category
 router.get('/admin/category', AdminController.Category)
 router.post('/admin/addcategory', upload.single('image'), AdminController.addCategory);
 router.get("/admin/activeCategory/:id", AdminController.activeCategory);
 router.get("/admin/deactiveCategory/:id", AdminController.deActiveCategory);
+
+router.get('/admin/comment',AdminController.CommentData);
+router.get('/admin/activeComment/:id', AdminController.activeUComment);
+router.get('/admin/deactiveComment/:id',AdminController.deActiveComment);
+router.get('/admin/delComment/:id',AdminController.deleteComment);
 
 
 module.exports = router;

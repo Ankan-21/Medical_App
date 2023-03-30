@@ -66,17 +66,17 @@
 
                                                             <% if(data.status) {%>
                                                                 <td>
-                                                                    <a href="deactiveuser/<%- data._id %>" class="btn btn-warning">Deactive</a>
+                                                                    <a href="/admin/deactiveuser/<%- data._id %>" class="btn btn-warning">Deactive</a>
                                                                 </td>
                                                                 <td>
-                                                                    <a href="remove-user/<%- data._id %>" class="btn btn-danger">Delete</a>
+                                                                    <a href="/admin/remove-user/<%- data._id %>" class="btn btn-danger">Delete</a>
                                                                 </td>
                                                                 <% } else{%>
                                                                     <td>
-                                                                        <a href="activeuser/<%- data._id %>" class="btn btn-success">Active</a>
+                                                                        <a href="/admin/activeuser/<%- data._id %>" class="btn btn-success">Active</a>
                                                                     </td>
                                                                     <td>
-                                                                        <a href="remove-user/<%- data._id %>" class="btn btn-danger">Delete</a>
+                                                                        <a href="/admin/remove-user/<%- data._id %>" class="btn btn-danger">Delete</a>
                                                                     </td>
                                                                     <% } %>
                                                         </tr>

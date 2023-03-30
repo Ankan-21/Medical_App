@@ -17,8 +17,11 @@ router.get("/confirmation/:email/:token", UserController.conformation);
 router.get('/', UserController.home);
 router.get('/about', UserController.about);
 router.get('/doctor',UserController.userAuth, UserController.doctor);
+
 router.get('/blog', UserController.blog);
-router.get('/blog-single', UserController.blog_details)
+router.get('/blog-single', UserController.blog_details);
+router.post('/comment', UserController.addComment);
+
 router.get('/department', UserController.department);
 router.get('/appointment',UserController.userAuth, UserController.Appointment);
 router.post('/addAppointment' , UserController.addAppoiment)

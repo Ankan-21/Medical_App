@@ -18,7 +18,7 @@ const AppointmentSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "category"
     },
-    messege:{
+    message:{
         type:String,
         required:true,
     },

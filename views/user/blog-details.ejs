@@ -56,26 +56,13 @@
                   </div>
                   <%} } }%>
 
-                  <div class="navigation-top">
-                     <div class="d-sm-flex justify-content-between text-center">
-                        <p class="like-info"><span class="align-middle"><i class="fa fa-heart"></i></span> Lily and 4
-                           people like this</p>
-                        <div class="col-sm-4 text-center my-2 my-sm-0">
-                           <!-- <p class="comment-count"><span class="align-middle"><i class="fa fa-comment"></i></span> 06 Comments</p> -->
-                        </div>
-                        <ul class="social-icons">
-                           <li><a href="https://www.facebook.com/sai4ull"><i class="fab fa-facebook-f"></i></a></li>
-                           <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                           <li><a href="#"><i class="fab fa-dribbble"></i></a></li>
-                           <li><a href="#"><i class="fab fa-behance"></i></a></li>
-                        </ul>
-                     </div>
-                  </div>
-
                   <!-- Comment Section -->
 
+                  <% if(comment.length> 0) {%>
+                     <% for(let data of comment) { if(data.status){%>
+
                   <div class="comments-area">
-                     <h4>05 Comments</h4>
+                     <h4></h4>
                      <div class="comment-list">
                         <div class="single-comment justify-content-between d-flex">
                            <div class="user justify-content-between d-flex">
@@ -84,18 +71,14 @@
                               </div>
                               <div class="desc">
                                  <p class="comment">
-                                    Multiply sea night grass fourth day sea lesser rule open subdue female fill which them
-                                    Blessed, give fill lesser bearing multiply sea night grass fourth day sea lesser
+                                    <%=data.comment%>
                                  </p>
                                  <div class="d-flex justify-content-between">
                                     <div class="d-flex align-items-center">
                                        <h5>
-                                          <a href="#">Emilly Blunt</a>
+                                          <a href="#"><%=data.name%></a>
                                        </h5>
-                                       <p class="date">December 4, 2017 at 3:12 pm </p>
-                                    </div>
-                                    <div class="reply-btn">
-                                       <a href="#" class="btn-reply text-uppercase">reply</a>
+                                       <p class="date"><%=data.createdAt.toDateString()%> </p>
                                     </div>
                                  </div>
                               </div>
@@ -103,11 +86,12 @@
                         </div>
                      </div>
                   </div>
+                  <%} } }%>
 
                   <!-- Comment form -->
                   <div class="comment-form">
                      <h4>Leave a Reply</h4>
-                     <form class="form-contact comment_form" action="#" id="commentForm">
+                     <form class="form-contact comment_form" action="/comment" method="post" id="commentForm">
                         <div class="row">
                            <div class="col-12">
                               <div class="form-group">
@@ -168,6 +152,23 @@
                               <a href="blog_details.html">
                                  <h2 style="color: #2d2d2d;"></a><%-data.title %></h3>
                                  <time datetime="2020-01-01"><%-data.createAt.toDateString()%></time>
+                              </a>
+                           </div>
+                        </div>
+                        <% }} %>
+                     </aside>
+
+                     <aside class="single_sidebar_widget popular_post_widget">
+                        <h3 class="widget_title" style="color: #2d2d2d;">Recent Comment</h3>
+                        <% for(data of comment) { if(data.status) {%>
+                        <div class="media post_item">
+                           
+                           <div class="media-body">
+                              <a href="#">
+                                 <h2 style="color: #2d2d2d;"></a><%=data.comment%></h3>
+                                    <h3><%=data.name%></h3>
+                                    <h4><time datetime="2020-01-01"><%-data.createdAt.toDateString()%></time></h4>
+                                 
                               </a>
                            </div>
                         </div>
