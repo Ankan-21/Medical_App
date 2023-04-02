@@ -59,7 +59,7 @@
                   <!-- Comment Section -->
 
                   <% if(comment.length> 0) {%>
-                     <% for(let data of comment) { if(data.status){%>
+                     <% for(let data of comment) {if(blogs[0].equals(data.post) && data.status) {%>
 
                   <div class="comments-area">
                      <h4></h4>
@@ -70,13 +70,13 @@
                                  <img src="assets/img/comment/comment_1.png" alt="">
                               </div>
                               <div class="desc">
-                                 <p class="comment">
-                                    <%=data.comment%>
-                                 </p>
+                                 
+                                    <h4><strong><%=data.comment%></strong></h4>
+                                 
                                  <div class="d-flex justify-content-between">
                                     <div class="d-flex align-items-center">
                                        <h5>
-                                          <a href="#"><%=data.name%></a>
+                                          <a href="#" style="color: #747070;"><%=data.name%></a>
                                        </h5>
                                        <p class="date"><%=data.createdAt.toDateString()%> </p>
                                     </div>
@@ -95,6 +95,8 @@
                         <div class="row">
                            <div class="col-12">
                               <div class="form-group">
+                                 <input type="hidden" name="post" value="<%- blogs[0]._id %>">
+                                 <input type="hidden" name="slug" value="<%- blogs[0].slug %>">
                                  <textarea class="form-control w-100" name="comment" id="comment" cols="30" rows="9"
                                     placeholder="Write Comment"></textarea>
                               </div>
@@ -147,9 +149,9 @@
                         <h3 class="widget_title" style="color: #2d2d2d;">Recent Post</h3>
                         <% for(data of blogs) { if(data.status) {%>
                         <div class="media post_item">
-                           <img src="/upload/<%=data.PostImage %>" alt="" class="img-responsive" style="width: 90px; height: 100px;" />
+                           <a href="/blog-single/<%-data.slug %>"><img src="/upload/<%=data.PostImage %>" alt="" class="img-responsive" style="width: 90px; height: 100px;" /></a>
                            <div class="media-body">
-                              <a href="blog_details.html">
+                              <a href="/blog-single/<%-data.slug %>">
                                  <h2 style="color: #2d2d2d;"></a><%-data.title %></h3>
                                  <time datetime="2020-01-01"><%-data.createAt.toDateString()%></time>
                               </a>
@@ -167,7 +169,7 @@
                               <a href="#">
                                  <h2 style="color: #2d2d2d;"></a><%=data.comment%></h3>
                                     <h3><%=data.name%></h3>
-                                    <h4><time datetime="2020-01-01"><%-data.createdAt.toDateString()%></time></h4>
+                                    <h8><%-data.createdAt.toDateString()%></h4>
                                  
                               </a>
                            </div>

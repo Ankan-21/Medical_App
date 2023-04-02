@@ -68,7 +68,7 @@ router.get("/admin/deactivedoctor/:id", DoctorController.deActiveDoctor);
 
 //Blog Router
 router.get('/admin/blog', AdminController.adminAuth, AdminController.blog);
-router.post('/admin/addblog', upload.single('image'), AdminController.addBlog)
+router.post('/admin/addblog', upload.single('image'), AdminController.Addpost)
 router.get("/admin/activeblog/(:id)", AdminController.activeBlog);
 router.get("/admin/deactiveblog/(:id)", AdminController.deActiveBlog);
 

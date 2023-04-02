@@ -62,6 +62,11 @@
                                                                 placeholder="Experience">
                                                         </div>
                                                         <div class="form-group">
+                                                            <label class="col-form-label">Time:</label>
+                                                            <input type="text" class="form-control" name="OPDtime"
+                                                                placeholder="OPD Time">
+                                                        </div>
+                                                        <div class="form-group">
                                                             <label class="col-form-label">Qualification:</label>
                                                             <input type="text" class="form-control" name="qualification"
                                                                 placeholder="Qualification">
@@ -70,6 +75,15 @@
                                                             <label class="col-form-label">Email:</label>
                                                             <input type="email" class="form-control" name="email"
                                                                 placeholder="Email">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-form-label">Address:</label>
+                                                            <input type="text" class="form-control" name="address"
+                                                                placeholder="Address">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-form-label">About :</label>
+                                                                    <textarea class="form-control" name="aboutDoctor" rows="4" data-rule="required" data-msg="Please write something for us" placeholder="Message"></textarea>
                                                         </div>
                                                         <div class="form-group">
                                                             <label class="col-form-label">Image:</label>
@@ -101,8 +115,11 @@
                                                     <th>Name</th>
                                                     <th>Specialist</th>
                                                     <th>Experience</th>
+                                                    <th>OPD Time</th>
                                                     <th>Qualification</th>
+                                                    <th>About Doctor</th>
                                                     <th>Email</th>
+                                                    <th>Address</th>
                                                     <th>Status</th>
                                                     <th>Operation</th>
 
@@ -128,10 +145,19 @@
                                                                 <%=data.experience%>
                                                             </td>
                                                             <td>
+                                                                <%=data.OPDtime%>
+                                                            </td>
+                                                            <td>
                                                                 <%=data.qualification%>
                                                             </td>
                                                             <td>
+                                                                <%=data.aboutDoctor.slice(0,80)+"..."%>
+                                                            </td>
+                                                            <td>
                                                                 <%=data.email%>
+                                                            </td>
+                                                            <td>
+                                                                <%=data.address%>
                                                             </td>
                                                             <td>
                                                                 <%=data.status%>

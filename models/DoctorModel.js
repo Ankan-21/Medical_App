@@ -2,7 +2,12 @@ const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 
 const doctorSchema = new Schema({
+
     name:{
+        type : String,
+        required : true
+    },
+    aboutDoctor:{
         type : String,
         required : true
     },
@@ -25,6 +30,20 @@ const doctorSchema = new Schema({
     DoctorImage:{
         type:String,
         required:true
+    },
+    OPDtime:{
+        type:String,
+        required:true
+    },
+    address:{
+        type:String,
+        required:true
+    },
+    
+    slug: {
+        type: String,
+        required: true,
+        unique: true
     },
     status:{
         type : Boolean,

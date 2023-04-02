@@ -35,7 +35,7 @@
 					<a class="button" href="/login" style="background-color: white;border: none;color: rgb(0, 0, 0);padding: 15px 32px;border-top-left-radius: 5px;border-bottom-right-radius: 5px;display: inline-block;font-size: 16px;font-weight: 700;cursor: pointer;;" >Have An Accout?</a>
 				</div>
 			</div>
-			<form  action="/signup" method="post" class="form-detail">
+			<form  action="/signup" method="post" class="form-detail" enctype="multipart/form-data"
 				<h2>Registration</h2>
 				<div class="form-row">
 					<div class="form-row form-row-1">
@@ -47,6 +47,9 @@
 				</div>
 				<div class="form-row">
 					<input type="email" class="input-text" name="email" placeholder="Email Address">
+				</div>
+				<div class="form-row">
+					<input type="file" class="input-text" name="image">
 				</div>
 				<div class="form-group">
 					<div class="form-row form-row-1">

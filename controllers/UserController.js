@@ -12,6 +12,7 @@ const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
 const flash = require('connect-flash');
+const { aggregate } = require('../models/UserModel');
 
 
 // User Auth
@@ -30,7 +31,7 @@ const userAuth = (req, res, next) => {
 
 const register = (req, res) => {
     res.render("./user/register", {
-        'title': '+Medical || Registration',
+        title: '+Medical | Registration',
         data: req.user,
         message: req.flash('message'),
     })
@@ -42,6 +43,7 @@ const CreateRegister = (req, res) => {
         firstname: req.body.firstname,
         lastname: req.body.lastname,
         email: req.body.email,
+        userImage: req.file.filename,
         password: bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10))
     }).save((err, user) => {
         if (!err) {
@@ -121,7 +123,7 @@ const login = (req, res) => {
     loginData.email = (req.cookies.email) ? req.cookies.email : undefined
     loginData.password = (req.cookies.password) ? req.cookies.password : undefined
     res.render("./user/login-register", {
-        title: "+Medical || Login",
+        title: "+Medical | Login",
         data: req.user,
         data1: loginData,
         message: req.flash('message'),
@@ -138,6 +140,7 @@ const signin = (req, res) => {
                 if (bcrypt.compareSync(req.body.password, hashPassword)) {
                     const token = jwt.sign({
                         id: data._id,
+                        Picture:data.userImage,
                         firstname: data.firstname
                     }, "sdsubhajit@2406", { expiresIn: '5m' });
                     res.cookie("token", token);
@@ -147,7 +150,7 @@ const signin = (req, res) => {
                     }
                     console.log("login success",);
                     console.log(data.firstname);
-                    res.redirect("/blog");
+                    res.redirect("/");
                 } else {
                     console.log("Invalid Password...");
                     // res.redirect("/");
@@ -179,7 +182,7 @@ const home = (req, res) => {
         DoctorModel.find().limit(3).then(result => {
             BlogModel.find().then(blogdata => {
                 res.render("./user/index", {
-                    'title': '+Medical || Home',
+                    title: '+Medical | Home',
                     data: req.user,
                     AboutData: data,
                     doctors: result,
@@ -203,7 +206,7 @@ const about = (req, res) => {
     AboutModel.find().then(data => {
         DoctorModel.find().limit(3).then(result => {
             res.render("./user/about", {
-                'title': '+Medical || About Us',
+                title: '+Medical | About Us',
                 data: req.user,
                 AboutData: data,
                 doctors: result,
@@ -224,7 +227,7 @@ const about = (req, res) => {
 // User Contact Page
 const contact = (req, res) => {
     res.render("./user/contact", {
-        'title': '+Medical || Contact us',
+        title: '+Medical | Contact us',
         data: req.user,
         message: req.flash('message'),
         alert: req.flash('message')
@@ -254,7 +257,7 @@ const department = (req, res) => {
     CategoryModel.find((err, data) => {
         if (!err) {
             res.render('./user/department', {
-                'title': '+Medical || Department',
+                title: '+Medical | Department',
                 categorys: data,
                 data: req.user
             })
@@ -267,7 +270,7 @@ const Appointment = (req, res) => {
     AppointmentModel.find().then(result => {
         CategoryModel.find().then(data => {
             res.render('./user/apointment', {
-                'title': '+Medical || Appointment',
+                title: '+Medical | Appointment',
                 displayresult: result,
                 displaydata: data,
                 data: req.user,
@@ -296,7 +299,7 @@ const doctor = (req, res) => {
     DoctorModel.find((err, data) => {
         if (!err) {
             res.render('./user/doctor', {
-                'title': '+Medical || Doctor',
+                title: '+Medical | Doctor',
                 doctors: data,
                 data: req.user
             })
@@ -304,7 +307,58 @@ const doctor = (req, res) => {
     })
 }
 
-// User Blog
+
+const doctorProfile = (req, res) => {
+    DoctorModel.find({ slug: req.params.slug }).then(result => {
+        res.render("./user/doctor-profile", {
+            title: '+Medical | Doctor Profile',
+            data: req.user,
+            doctors: result,
+            // message: req.flash("message"),
+            // alert: req.flash("alert"),
+        })
+    }).catch(error => {
+        console.log(error);
+    })
+}
+
+
+
+
+// const blog = (req, res) => {
+//     const pager = req.query.page ? req.query.page : 1
+//     option = {
+//         page: pager,
+//         limit: 3,
+//         sort: '-createdAt',
+//         collation: {
+//             locale: 'en'
+//         },
+//     };
+//     BlogModel.paginate({}, option).then(data => {
+//         console.log(data.docs);
+//         console.log(data);
+//         const blog = (req, res) => {
+//             BlogModel.find().sort('-createdAt').then(result => {
+//                 res.render("./user/blog", {
+//                     title: '+Medical | Blog',
+//                     data: req.user,
+//                     pager: pager,
+//                     pageData: data,
+//                     blogs: result,
+//                     // message: req.flash("message"),
+//                     // alert: req.flash("alert"),
+//                 })
+//             }).catch(error => {
+//                 console.log(error);
+//             })
+//         }
+
+//     }).catch(err => {
+//         console.log(err);
+//     })
+// }
+
 const blog = (req, res) => {
     BlogModel.find().sort('-createdAt').then(result => {
         res.render("./user/blog", {
@@ -322,13 +376,13 @@ const blog = (req, res) => {
 
 
 const blog_details = (req, res) => {
-    BlogModel.find().sort('-createdAt').then(result => {
+    BlogModel.find({ slug: req.params.slug }).sort('-createdAt').then(result => {
         CommentModel.find().sort('-createdAt').then(data => {
             res.render("./user/blog-details", {
-                'title': '+Medical || Blog details',
+                title: '+Medical | Blog details',
                 data: req.user,
                 blogs: result,
-                comment:data,
+                comment: data,
                 message: req.flash("message"),
                 alert: req.flash("alert"),
             })
@@ -340,19 +394,22 @@ const blog_details = (req, res) => {
     })
 }
 
+
 // Comment section
 const addComment = (req, res) => {
+    const id = req.body._id
     CommentModel({
+        post: req.body.post,
         comment: req.body.comment,
         name: req.body.name,
         email: req.body.email,
         website: req.body.website,
     }).save().then(result => {
         console.log("Comment Added...");
-        res.redirect("/blog-single");
+        res.redirect(`/blog-single/${req.body.slug}`);
     }).catch(err => {
         console.log("Comment Not Added...", err);
-        res.redirect("/blog-single");
+        res.redirect(`/blog-single/${req.body.slug}`);
     })
 }
 
@@ -363,6 +420,7 @@ const addComment = (req, res) => {
 const Cardiology = (req, res) => {
     DoctorModel.aggregate([{ $match: { specialist: "Cardiology" } }]).then(result => {
         res.redirect('./user/doctor', {
+            title: '+Medical | Cardiology',
             doctors: result,
             data: req.user
         })
@@ -372,6 +430,7 @@ const Cardiology = (req, res) => {
 const Dentist = (req, res) => {
     DoctorModel.aggregate([{ $match: { specialist: "Dentist" } }]).then(result => {
         res.render('./user/doctor', {
+            title: '+Medical | Dentist',
             doctors: result,
             data: req.user
         })
@@ -380,6 +439,7 @@ const Dentist = (req, res) => {
 const Neurology = (req, res) => {
     DoctorModel.aggregate([{ $match: { specialist: "Neurology" } }]).then(result => {
         res.render('./user/doctor', {
+            title: '+Medical | Neurology',
             doctors: result,
             data: req.user
         })
@@ -388,6 +448,7 @@ const Neurology = (req, res) => {
 const Gastrology = (req, res) => {
     DoctorModel.aggregate([{ $match: { specialist: "Gastrology" } }]).then(result => {
         res.render('./user/doctor', {
+            title: '+Medical | Gastrology',
             doctors: result,
             data: req.user
         })
@@ -396,6 +457,7 @@ const Gastrology = (req, res) => {
 const Arthrology = (req, res) => {
     DoctorModel.aggregate([{ $match: { specialist: "Arthrology" } }]).then(result => {
         res.render('./user/doctor', {
+            title: '+Medical | Arthrology',
             doctors: result,
             data: req.user
         })
@@ -418,6 +480,7 @@ module.exports = {
     createContact,
     department,
     doctor,
+    doctorProfile,
     blog,
     blog_details,
     Appointment,

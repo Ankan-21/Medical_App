@@ -11,10 +11,10 @@ const cookie=require('cookie-parser');
 // Admin Auth
 const adminAuth = (req, res, next) => {
     if (req.admin) {
-        console.log(req.admin);
+        // console.log(req.admin);
         next();
     } else {
-        console.log(req.admin);
+        // console.log(req.admin);
         res.redirect("/admin");
     }
 }
@@ -40,7 +40,7 @@ const admin_login = (req, res, next) => {
             if (bcrypt.compareSync(req.body.password, hashPassword)) {
                 const token = jwt.sign({
                     id: data._id,
-                    name:data.name,
+                    name:data.firstname,
                     // picture:data.image,
                     email: data.email
                 }, "med@123", { expiresIn: '5h' });
@@ -49,7 +49,7 @@ const admin_login = (req, res, next) => {
                     res.cookie('email', req.body.email)
                     res.cookie('password', req.body.password)
                 }
-                console.log(data);
+                // console.log(data);
                 res.redirect("dashboard");
             } else {
              
@@ -160,11 +160,33 @@ const addBlog = (req,res)=>{
     })
     blogdata.save().then(data=>{
         res.redirect('/admin/blog')
-        console.log(data);
+        // console.log(data);
     }).catch(err=>{
         res.redirect('/admin/blog')
         console.log(err);
     })
+}
+
+const Addpost=(req,res)=>{
+    BlogModel.findOne({slug: req.body.title.trim().replace(/[&\/\\#, +()$~%.'":*?<>{}]/g, '_').toLowerCase()}).then((data=>{
+        const blogdata=new BlogModel({
+            title : req.body.title,
+            subtitle : req.body.subtitle,
+            content : req.body.content,
+            PostImage : req.file.filename,
+            slug: req.body.title.trim().replace(/[&\/\\#, +()$~%.'":*?<>{}]/g, "_").toLowerCase(),
+        })
+        blogdata.save().then(result=>{
+            // console.log(result)
+            console.log("Post Added..");
+            res.redirect('/admin/blog')
+            
+        }).catch(err=>{
+            console.log(err,"Post Not Added");
+            res.redirect('/admin/blog');
+            
+        })
+    }))
 }
 
 const activeBlog= (req, res) => {
@@ -237,7 +259,8 @@ const deleteUser=(req,res)=>{
     uid=req.params.id
     UserModel.deleteOne({_id:uid}).then(del=>{
         res.redirect('/admin/users'),
-        console.log(del,"User deleted successfully");
+        // console.log(del);
+        console.log("User deleted Successfully");
     }).catch(err=>{
         console.log(err);
     })
@@ -264,7 +287,8 @@ const DeleteAppointment=(req,res)=>{
     aid=req.params.id
     appointmentModel.deleteOne({_id:aid}).then(del=>{
         res.redirect('/admin/appointment'),
-        console.log(del,"Appointment deleted successfully");
+        // console.log(del);
+        console.log("Appointment deleted successfully");
     }).catch(err=>{
         console.log(err);
     })
@@ -293,7 +317,7 @@ const addCategory = (req, res) => {
     })
     categorydata.save().then(data => {
         res.redirect('/admin/category')
-        console.log(data);
+        // console.log(data);
     }).catch(err => {
         res.redirect('/admin/category')
         console.log(err);
@@ -305,7 +329,7 @@ const activeCategory = (req, res) => {
     CategoryModel.findByIdAndUpdate(cid,{
         status:true
     }).then(result => {
-        console.log(result);
+        // console.log(result);
         console.log("Activeted...");
         res.redirect("/admin/category");
     }).catch(err => {
@@ -319,7 +343,7 @@ const deActiveCategory = (req, res) => {
     CategoryModel.findByIdAndUpdate(cid, {
         status:false
     }).then(result => {
-        console.log(result);
+        // console.log(result);
         console.log(" Deactiveted...");
         res.redirect("/admin/category");
     }).catch(err => {
@@ -372,7 +396,8 @@ const deleteComment =(req,res)=>{
     coid=req.params.id
     CommentModel.deleteOne({_id:coid}).then(del=>{
         res.redirect('/admin/comment'),
-        console.log(del,"Comment deleted successfully");
+        // console.log(del);
+        console.log("Comment deleted successfully");
     }).catch(err=>{
         console.log(err);
     })
@@ -390,7 +415,7 @@ module.exports={
 
     AdminAbout,addAbout,activeHeadline,deActiveHeadline,
 
-    blog,addBlog,activeBlog,deActiveBlog,
+    blog,addBlog,activeBlog,deActiveBlog,Addpost,
 
     user,activeUser,deActiveUser,deleteUser,
 
