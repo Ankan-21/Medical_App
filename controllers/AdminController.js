@@ -155,7 +155,7 @@ const addBlog = (req,res)=>{
     const blogdata = new BlogModel({
         title : req.body.title,
         subtitle : req.body.subtitle,
-        content : req.body.content,
+        contents : req.body.content,
         PostImage : req.file.filename,
     })
     blogdata.save().then(data=>{

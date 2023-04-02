@@ -6,7 +6,7 @@ const aboutSchema = new Schema({
         type:String,
         required:false
     },
-    content:{
+    contents:{
         type : String,
         required : true
     },
