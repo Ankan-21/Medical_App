@@ -43,6 +43,11 @@ const CreateRegister = (req, res) => {
         firstname: req.body.firstname,
         lastname: req.body.lastname,
         email: req.body.email,
+        phone: req.body.phone,
+        address: req.body.address,
+        age: req.body.age,
+        gender: req.body.gender,
+        about: req.body.about,
         userImage: req.file.filename,
         password: bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10))
     }).save((err, user) => {
@@ -140,7 +145,7 @@ const signin = (req, res) => {
                 if (bcrypt.compareSync(req.body.password, hashPassword)) {
                     const token = jwt.sign({
                         id: data._id,
-                        Picture:data.userImage,
+                        Picture: data.userImage,
                         firstname: data.firstname
                     }, "sdsubhajit@2406", { expiresIn: '5m' });
                     res.cookie("token", token);
@@ -222,6 +227,21 @@ const about = (req, res) => {
     })
 }
 
+// User Profile
+
+const userProfile = (req, res) => {
+    UserModel.findById(req.user.id).then(result => {
+        console.log(result);
+        res.render('./user/userProfile', {
+            title: '+Medical | Profile',
+            data: req.user,
+            user: result,
+        })
+    })
+}
+
+
+
 
 
 // User Contact Page
@@ -243,11 +263,11 @@ const createContact = (req, res) => {
         message: req.body.message,
     })
     contectdata.save().then(data => {
-        req.flash('message', 'Thank you for Contect us. we gives our best')
+        req.flash('message', 'Thank you for Contacting us. we will get back to you soon!')
         res.redirect('/contact')
         console.log(data);
     }).catch(err => {
-        req.flash('message', 'Contect failed....')
+        req.flash('message', 'Contact failed....')
         res.redirect('/contact')
     })
 }
@@ -324,41 +344,6 @@ const doctorProfile = (req, res) => {
 
 
 
-
-// const blog = (req, res) => {
-//     const pager = req.query.page ? req.query.page : 1
-//     option = {
-//         page: pager,
-//         limit: 3,
-//         sort: '-createdAt',
-//         collation: {
-//             locale: 'en'
-//         },
-//     };
-//     BlogModel.paginate({}, option).then(data => {
-//         console.log(data.docs);
-//         console.log(data);
-//         const blog = (req, res) => {
-//             BlogModel.find().sort('-createdAt').then(result => {
-//                 res.render("./user/blog", {
-//                     title: '+Medical | Blog',
-//                     data: req.user,
-//                     pager: pager,
-//                     pageData: data,
-//                     blogs: result,
-//                     // message: req.flash("message"),
-//                     // alert: req.flash("alert"),
-//                 })
-//             }).catch(error => {
-//                 console.log(error);
-//             })
-//         }
-
-//     }).catch(err => {
-//         console.log(err);
-//     })
-// }
-
 const blog = (req, res) => {
     BlogModel.find().sort('-createdAt').then(result => {
         res.render("./user/blog", {
@@ -372,6 +357,39 @@ const blog = (req, res) => {
         console.log(error);
     })
 }
+
+
+
+
+const search = (req, res) => {
+    if(req.user){
+        UserModel.findById(req.admin.id).then(result3 => {
+            BlogModel.aggregate([
+                { $match: { post: req.body.input } }
+            ]).then(result => {
+                console.log(result);
+                res.render('./user/blog', {
+                    title: "blog page",
+                    data: req.user,
+                    Postdata: result3,
+                    blogs: result,
+                })
+            })
+        })
+    }else{
+        BlogModel.aggregate([
+            { $match: { title: req.body.input } }
+        ]).then(result => {
+            console.log(result);
+            res.render('./user/blog', {
+                title: "blog page",
+                data: req.user,
+                
+            })
+        })
+    }
+}
+
 
 
 
@@ -412,6 +430,7 @@ const addComment = (req, res) => {
         res.redirect(`/blog-single/${req.body.slug}`);
     })
 }
+
 
 
 
@@ -477,6 +496,7 @@ module.exports = {
     home,
     about,
     contact,
+    userProfile,
     createContact,
     department,
     doctor,
@@ -486,6 +506,8 @@ module.exports = {
     Appointment,
     addAppoiment,
     addComment,
+    search,
+
 
     Cardiology,
     Dentist,

@@ -48,9 +48,14 @@ router.get('/register', UserController.register)
 router.post('/signup',upload.single('image'),[verifysiginin.checkDuplicateEntries], UserController.CreateRegister)
 router.get("/confirmation/:email/:token", UserController.conformation);
 
+// User profile
+router.get('/userProfile', UserController.userProfile);
+
 // All User Pages
 router.get('/', UserController.home);
 router.get('/about', UserController.about);
+
+
 router.get('/doctor',UserController.userAuth, UserController.doctor);
 router.get('/doctor-profile/(:slug)',UserController.userAuth, UserController.doctorProfile);
 
@@ -64,6 +69,9 @@ router.post('/addAppointment' , UserController.addAppoiment)
 
 router.get('/contact', UserController.contact);
 router.post('/createContact' , UserController.createContact)
+
+// Search
+router.post('/search', UserController.search);
 
 //Category
 router.get('/Dentist',UserController.userAuth, UserController.Dentist)

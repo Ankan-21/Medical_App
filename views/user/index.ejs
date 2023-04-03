@@ -32,7 +32,7 @@
                                         <b>steak</b>
                                     </strong>
                                 </h1>
-                                <p data-animation="fadeInLeft" data-delay="0.1s">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi uquip ex ea commodo consequat is aute irure.</p>
+                                <p data-animation="fadeInLeft" data-delay="0.1s"></p>
                                 <a href="/appointment" class="btn hero-btn" data-animation="fadeInLeft" data-delay="0.5s">Appointment <i class="ti-arrow-right"></i></a>
                             </div>
                         </div>
@@ -53,7 +53,7 @@
                                         <b>steak</b>
                                     </strong>
                                 </h1>
-                                <p data-animation="fadeInLeft" data-delay="0.1s">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi uquip ex ea commodo consequat is aute irure.</p>
+                                <p data-animation="fadeInLeft" data-delay="0.1s"></p>
                                 <a href="#" class="btn hero-btn" data-animation="fadeInLeft" data-delay="0.5s">Appointment <i class="ti-arrow-right"></i></a>
                             </div>
                         </div>
@@ -76,7 +76,7 @@
                         </div>
 
                         <% for(let data of AboutData) { if(data.status) {%>
-                            <p><%=data.content%></p>
+                            <p><%-data.contents%></p>
                         <div class="about-btn1 mb-30">
                             <a href="/doctor" class="btn about-btn">Find Doctors<i class="ti-arrow-right"></i></a>
                         </div>
@@ -320,7 +320,7 @@
                             <h4><strong><%=data.title%></strong></h4>
                             
                             <h3><%=data.content.slice(0,100)+"..."%></h3>
-                            <a href="/blog-single" class="read-more1">Read more</a>
+                            <a href="/blog-single/<%-data.slug %>" class="read-more1">Read more</a>
                         </div>
                     </div>
                 </div>

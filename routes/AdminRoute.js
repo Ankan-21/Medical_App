@@ -82,10 +82,13 @@ router.post('/admin/addcategory', upload.single('image'), AdminController.addCat
 router.get("/admin/activeCategory/:id", AdminController.activeCategory);
 router.get("/admin/deactiveCategory/:id", AdminController.deActiveCategory);
 
+// Comment 
 router.get('/admin/comment',AdminController.CommentData);
 router.get('/admin/activeComment/:id', AdminController.activeUComment);
 router.get('/admin/deactiveComment/:id',AdminController.deActiveComment);
 router.get('/admin/delComment/:id',AdminController.deleteComment);
 
+//Contact 
+router.get('/admin/cotact',AdminController.AdminContact);
 
 module.exports = router;

@@ -29,14 +29,14 @@
 		<div class="form-v4-content">
 			<div class="form-left">
 				<h2></h2>
-				<p class="text-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Et molestie ac feugiat sed. Diam volutpat commodo.</p>
-				<p class="text-2"><span>Eu ultrices:</span> Vitae auctor eu augue ut. Malesuada nunc vel risus commodo viverra. Praesent elementum facilisis leo vel.</p>
+				<h4 class="text-1">Medica Hospitals, one of the most reputed and leading healthcare chains in eastern India today, </h4>
+				<h5 class="text-2"> has built and managed a number of multispecialty and super-speciality healthcare facilities across the region over the past few years</h5>
 				<div class="form-left-last">
 					<a class="button" href="/login" style="background-color: white;border: none;color: rgb(0, 0, 0);padding: 15px 32px;border-top-left-radius: 5px;border-bottom-right-radius: 5px;display: inline-block;font-size: 16px;font-weight: 700;cursor: pointer;;" >Have An Accout?</a>
 				</div>
 			</div>
 			<form  action="/signup" method="post" class="form-detail" enctype="multipart/form-data"
-				<h2>Registration</h2>
+				<h1></h1>
 				<div class="form-row">
 					<div class="form-row form-row-1">
 						<input type="text" class="input-text" name="firstname" placeholder="First Name">
@@ -49,6 +49,28 @@
 					<input type="email" class="input-text" name="email" placeholder="Email Address">
 				</div>
 				<div class="form-row">
+					<input type="text" class="input-text" name="phone" placeholder="Contact Number">
+				</div>
+				<div class="form-group">
+					<div class="form-row form-row-1">
+						<input type="text" class="input-text" name="age" placeholder="How old are you?">
+					</div>
+					<div class="form-row form-row-1">
+						<select name="gender" id="gender" style="width: 80px;">
+						  <option value="Male">Male</option>
+						  <option value="Female">Female</option>
+						  <option value="Not to disclose !">Not to disclose !</option>
+						  
+						</select>
+					</div>
+				</div>
+				<div class="form-row">
+					<input type="text" class="input-text" name="address" placeholder="Address">
+				</div>
+				<div class="form-row">
+					<textarea type="text" class="form-control" name="about" rows="8" placeholder="About Yourself!"></textarea>
+				</div>
+				<div class="form-row">
 					<input type="file" class="input-text" name="image">
 				</div>
 				<div class="form-group">
@@ -59,12 +81,7 @@
 						<input type="password" class="input-text" name="confirmpassword" placeholder="Repeat Password">
 					</div>
 				</div>
-				<div class="form-checkbox">
-					<label class="container"><p>I agree to the <a href="#" class="text">Terms and Conditions</a></p>
-					  	<input type="checkbox" name="checkbox">
-					  	<span class="checkmark"></span>
-					</label>
-				</div>
+
 				<button type="submit" class="btn btn-primary btn-user btn-block">Register</button>
 			</form>
 
