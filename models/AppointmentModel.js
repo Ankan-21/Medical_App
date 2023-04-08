@@ -6,6 +6,7 @@ const AppointmentSchema = new Schema({
         type : String,
         required : true
     },
+    
     phone:{
         type : String,
         required : true
@@ -15,8 +16,8 @@ const AppointmentSchema = new Schema({
         required : true
     },
     specialist: {
-        type: Schema.Types.ObjectId,
-        ref: "category"
+        type : String,
+        required : true
     },
     message:{
         type:String,

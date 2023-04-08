@@ -179,12 +179,11 @@ const addBlog = (req, res) => {
     })
     blogdata.save().then(data => {
         res.redirect('/admin/blog')
-        req.flash('message' , 'Blog added successfully')          
-
+        req.flash('message', 'Blog added successfully')
         // console.log(data);
     }).catch(err => {
         res.redirect('/admin/blog')
-        req.flash('message' , 'Blog not added')          
+        req.flash('message', 'Blog not added')
         console.log(err);
     })
 }
@@ -289,6 +288,7 @@ const deleteUser = (req, res) => {
 }
 
 // Appointment data stored in admin dashboard
+
 const AdminAppointment = (req, res) => {
     appointmentModel.find().then(result => {
         CategoryModel.find().then(data => {
@@ -304,6 +304,7 @@ const AdminAppointment = (req, res) => {
         console.log(err);
     })
 }
+
 
 const DeleteAppointment = (req, res) => {
     aid = req.params.id
@@ -340,12 +341,12 @@ const addCategory = (req, res) => {
     })
     categorydata.save().then(data => {
         res.redirect('/admin/category')
-        req.flash('message' , 'Category added successfully')          
+        req.flash('message', 'Category added successfully')
 
         // console.log(data);
     }).catch(err => {
         res.redirect('/admin/category')
-        req.flash('message' , 'Category not added')          
+        req.flash('message', 'Category not added')
         console.log(err);
     })
 }
@@ -431,12 +432,12 @@ const deleteComment = (req, res) => {
 
 const AdminContact = (req, res) => {
     ContactModel.find().then(result => {
-        console.log(result,"aaaa");
-            res.render('./admin/contact', {
-                'title': 'Contact Page',
-                data: req.admin,
-                displaydata: result,
-            })
+        console.log(result, "aaaa");
+        res.render('./admin/contact', {
+            'title': 'Contact Page',
+            data: req.admin,
+            displaydata: result,
+        })
     })
 }
 

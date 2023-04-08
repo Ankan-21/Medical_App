@@ -171,7 +171,7 @@ const signin = (req, res) => {
         } else {
             console.log("Invalid Email...");
             // res.redirect("/");
-            // req.flash("message", "Invalid Email");
+            req.flash("message", "Invalid Email");
             res.redirect("/login");
         }
     })
@@ -180,7 +180,8 @@ const signin = (req, res) => {
 // User Logout
 const logout = (req, res) => {
     res.clearCookie("token");
-    res.redirect("/");
+    res.redirect("/login");
+    req.flash("message", "Logout Successfully");
 }
 
 const home = (req, res) => {
@@ -193,7 +194,7 @@ const home = (req, res) => {
                     AboutData: data,
                     doctors: result,
                     blogs: blogdata,
-                    // message: req.flash("message"),
+                    message: req.flash("message"),
                     // alert: req.flash("alert"),
                 })
             }).catch(error => {
@@ -216,7 +217,7 @@ const about = (req, res) => {
                 data: req.user,
                 AboutData: data,
                 doctors: result,
-                // message: req.flash("message"),
+                message: req.flash("message"),
                 // alert: req.flash("alert"),
             })
         }).catch(error => {
@@ -232,11 +233,14 @@ const about = (req, res) => {
 
 const userProfile = (req, res) => {
     UserModel.findById(req.user.id).then(result => {
-        console.log(result);
-        res.render('./user/userProfile', {
-            title: '+Medical | Profile',
-            data: req.user,
-            user: result,
+        AppointmentModel.aggregate([{ $match: { "name": req.user.firstname } }]).then(result2 => {
+            console.log(result2);
+            res.render('./user/userProfile', {
+                title: '+Medical | Profile',
+                data: req.user,
+                displaydata: result2,
+                user: result,
+            })
         })
     })
 }
@@ -302,10 +306,10 @@ const Appointment = (req, res) => {
 }
 const addAppoiment = (req, res) => {
     AppointmentModel({
-        name: req.body.name,
+        name: req.user.firstname,
         phone: req.body.phone,
         bookAt: req.body.bookAt,
-        doctor: req.body.category,
+        specialist: req.body.specialist,
         message: req.body.message,
     }).save().then(result => {
         res.redirect("/appointment")
@@ -363,7 +367,7 @@ const blog = (req, res) => {
 
 
 const search = (req, res) => {
-    if(req.user){
+    if (req.user) {
         UserModel.findById(req.admin.id).then(result3 => {
             BlogModel.aggregate([
                 { $match: { post: req.body.input } }
@@ -377,7 +381,7 @@ const search = (req, res) => {
                 })
             })
         })
-    }else{
+    } else {
         BlogModel.aggregate([
             { $match: { title: req.body.input } }
         ]).then(result => {
@@ -385,7 +389,7 @@ const search = (req, res) => {
             res.render('./user/blog', {
                 title: "blog page",
                 data: req.user,
-                
+
             })
         })
     }
@@ -439,7 +443,7 @@ const addComment = (req, res) => {
 
 const Cardiology = (req, res) => {
     DoctorModel.aggregate([{ $match: { specialist: "Cardiology" } }]).then(result => {
-        res.redirect('./user/doctor', {
+        res.render('./user/doctor', {
             title: '+Medical | Cardiology',
             doctors: result,
             data: req.user
