@@ -5,7 +5,7 @@ const CommentModel = require('../models/CommentModel');
 const appointmentModel = require('../models/AppointmentModel');
 const CategoryModel = require('../models/CategoryModel');
 const DoctorModel = require('../models/DoctorModel');
-const ContactModel = require('../models/CommentModel');
+const ContactModel = require('../models/ContactModel');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cookie = require('cookie-parser');
@@ -162,7 +162,8 @@ const blog = (req, res) => {
             res.render('./admin/blogs', {
                 'title': 'Blog Page',
                 blogs: data,
-                data: req.admin
+                data: req.admin,
+                message: req.flash('message')
             })
         }
     })
@@ -178,9 +179,12 @@ const addBlog = (req, res) => {
     })
     blogdata.save().then(data => {
         res.redirect('/admin/blog')
+        req.flash('message' , 'Blog added successfully')          
+
         // console.log(data);
     }).catch(err => {
         res.redirect('/admin/blog')
+        req.flash('message' , 'Blog not added')          
         console.log(err);
     })
 }
@@ -320,7 +324,8 @@ const Category = (req, res) => {
         res.render('./admin/category', {
             title: "Admin || Category",
             data: req.admin,
-            categorys: result
+            categorys: result,
+            message: req.flash('message')
         })
     }).catch(err => {
         console.log(err);
@@ -335,9 +340,12 @@ const addCategory = (req, res) => {
     })
     categorydata.save().then(data => {
         res.redirect('/admin/category')
+        req.flash('message' , 'Category added successfully')          
+
         // console.log(data);
     }).catch(err => {
         res.redirect('/admin/category')
+        req.flash('message' , 'Category not added')          
         console.log(err);
     })
 }

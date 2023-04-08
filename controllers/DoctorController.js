@@ -8,6 +8,7 @@ const doctor = (req, res) => {
                 'title': 'Admin | Doctor',
                 doctors: data,
                 data: req.admin,
+                message: req.flash('message')
             })
         }
     })
@@ -50,10 +51,11 @@ const addDoctor = (req, res) => {
         doctordata.save().then(result => {
             console.log(result, "Doctor Added");
             res.redirect('/admin/doctor')
-
+            req.flash('message' , 'Doctor added successfully')          
         }).catch(err => {
             console.log(err, "Doctor Not Added");
             res.redirect('/admin/doctor');
+            req.flash('message' , 'Doctor not added')
 
         })
     }))

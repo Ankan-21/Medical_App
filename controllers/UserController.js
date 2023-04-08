@@ -154,12 +154,13 @@ const signin = (req, res) => {
                         res.cookie('password', req.body.password)
                     }
                     console.log("login success",);
+                    req.flash("message", "Login Successfully");
                     console.log(data.firstname);
                     res.redirect("/");
                 } else {
                     console.log("Invalid Password...");
                     // res.redirect("/");
-                    // req.flash("message", "Invalid Password");
+                    req.flash("message", "Invalid Password");
                     res.redirect("/login");
                 }
             } else {

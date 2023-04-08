@@ -16,6 +16,11 @@
 
                         <!-- Begin Page Content -->
                         <div class="container-fluid">
+                            <% if(message.length>0){%>
+                                <div class="<%-alert%>" role="alert">
+                                  <%=message%>
+                                </div>   
+                                <%}%> 
 
                             <!-- Page Heading -->
                             <div class="d-sm-flex align-items-center justify-content-between mb-4">
